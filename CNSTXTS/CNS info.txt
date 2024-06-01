@@ -1,0 +1,18 @@
+ipconfig/ifconfig : to see ip information
+ipconfig /all  or ifconfig -a: to see all ip information
+
+to set an interface offline: sudo ifconfig enp0s3 down
+reconnecting: sudo ifconfig enp0s3 up
+
+
+Generate executable: gcc -fno-stack-protector -ggdb -m32 Labeval.c -o Labeval
+
+To exploit the program: 
+nano runbin.sh
+while read -r line; do echo -e $line; done | ./Labeval
+
+Run: ./runbin.sh
+
+GDB: sudo gdb -p `pgrep Labeval`
+
+To print address: print &r

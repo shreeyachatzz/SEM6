@@ -1,0 +1,28 @@
+16: 10.0.2.15
+22: 127.0.0.1
+
+ARP Poisoning:
+Wireshark study packet and format. Important for exams. 
+Save and read the content of the packet- sudo apt install hexeditor.
+hexedit to open hex file
+
+change the file accordingly
+
+file2cable: sudo apt-get install irpas
+
+file2cable command: " sudo file2cable -i eth2 -f hex_one"
+run arp cache: "arp -a"
+
+the gateway address will change
+
+Once a device is pinged, the MAC adress is stored our device does not search again for the MAC address again. It does refresh from time to time that's why if we want our data to stay the changed(edited) one.. so we put the connection doen so that no further search for MAC adress does not happen. Now we want our data to go to one MAC address it will go to another one
+
+Quiz: 
+Crossword Puzzles
+Fill in the blanks mcq
+anything can happen sometimes things outside syllabus also comes.
+
+You have to create new adapters in your VMs in order to avoid some issues.
+
+Make sure to delete Cache entries in your device so that there is no previously stored MAC address in it.
+arp -d "ip of address being attacked"

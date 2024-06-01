@@ -1,0 +1,34 @@
+_____________________________LAB 1-2_________________________________________
+
+To see the list of connected devices:
+- sudo fdisk -l
+
+To create image of a connected device:
+- sudo dc3dd if=/dev/sdb of=pd_image.dd
+
+To see hash:
+- sudo md5sum /dev/sdb/
+- sudo sha1sum /dev/sdb/
+
+with dc3dd we can split the files into chunks
+- sudo dc3dd if=/dev/sdb of=pd_image1.dd ofsz=10M ofs=split.0000
+
+to print the hash along with the image:
+- sudo dc3dd if=/dev/sdb of=pd_image1.dd hash=md5 log=imagefilelog
+
+To copy 512 bytes with only 1 block count:
+- dd if=/dev/sdb of=mbr count=1
+
+
+______________________________LAB 3_________________________________________
+
+Ways to check drives:
+- lsblk
+- lsusb
+
+To check faulty drives:
+- sudo ddrescue -d r3 /dev/sdb myimage.raw myimage.log
+
+To extract files by filetype (always in a folder)
+- mkdir foremost
+- sudo foremost -i pd_image.dd -o ~/foremost/

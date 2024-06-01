@@ -1,0 +1,39 @@
+CNS LAB COMMANDS
+EXPERIMENT 1
+To see all ip that are up information: ifconfig
+To see the data of all interfaces: ifconfig -a
+To set any interface down: sudo ifconfig eth14 down
+To set an interface to up: sudo ifconfig eth14 up
+To see the MTU sizes: ip a | grep mtu
+To set packet size to 1000 for a specific interface: ifconfig eth14 mtu 1000 up
+To see subnet mask: ifconfig | grep -i mask
+To find the DNS server ipadd : cat /etc/resolv.conf
+To send 8 pings of size 50: ping -n 8 -l 50 127.0.0.53
+To get info about the current connections: netstat -rn
+To see the number of hops to a specific ip address: tracert 140.250.206.132
+To get the mtr report of a specific ip address: mtr 117.203.246.106
+To generate the mtr report with 10 hops and 5 pings: mtr -h 10 -c 5 117.203.246.106
+
+EXPERIMENT 2
+File location to access and change the ip address resolution and perform arp poisoning:
+C:\Windows\System32\drivers\etc> notepad hosts
+In the hosts file change the file as:
+<ip you want to redirect a site to>	<the website you want to poison>
+
+EXPERIMENT 3
+Creating a new user: sudo adduser newname
+Copy a Set-UID file: cp cat ./newcat 
+See permissions of the new file: ls -l newcat
+To set an interface to up: sudo ifconfig eth14 up
+To see the MTU sizes: ip a | grep mtu
+To set packet size to 1
+
+EXPERIMENT CROWDMARK
+
+Generate executable: gcc -fno-stack-protector -ggdb -m32 Labeval.c -o Labeval
+To exploit the program: 
+nano runbin.sh
+while read -r line; do echo -e $line; done | ./Labeval
+Run: ./runbin.sh
+GDB: sudo gdb -p `pgrep Labeval`
+To print address: print &r

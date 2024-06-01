@@ -1,0 +1,21 @@
+SQL INJECTION
+1. To start SQLI
+mysql -uroot -pseedubuntu
+	(a) SHOW DATABASES;-> TO SEE DATABASES
+	(b) CREATE DATABASE dbtest; - to create a database
+	(C) USE dbtest -> to move into the particular database
+	(d) CREATE TABLE employee (
+		ID 	INT(6) NOT NULL AUTO_INCREMENT,
+		Name	VARCHAR (30) NOT NULL,
+		EID	VARCHAR(7) NOT NULL,
+		Password VARCHAR(60),
+		Salary	INT (10),
+		SSN	VARCHAR(11),
+		PRIMARY KEY (ID)
+	); -> creating a table with specifications
+	(e) DESCRIBE employee; -> to see table details
+	(f) INSERT INTO employee (Name, EID, Password, Salary, SSN) VALUES ('Shreeya','EID5000', 'paswd123', 100000, '555-55-555'); ->inserting data into table
+
+nano /etc/php5/apache2/php.ini ->magic bytes
+/etc/apache2/sites-available -> default -> /var/www/SQL/Collabtive
+/var/www -> make index.html and getdata.php

@@ -1,0 +1,974 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>SIMPLEX METHOD</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-04-03">
+<meta name="DC.source" content="Assignment_Lab5.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>SIMPLEX METHOD</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">QUESTION-1</a>
+</li>
+<li>
+<a href="#2">QUESTION-2</a>
+</li>
+<li>
+<a href="#3">QUESTION-3</a>
+</li>
+</ul>
+</div>
+<h2 id="1">QUESTION-1</h2>
+<p>Solve LPP using simplex using Simplex Algo</p>
+<pre class="codeinput">
+<span class="comment">%MAx Z= x1+2x2</span>
+<span class="comment">% s.t.  -x1+x2&lt;=1</span>
+<span class="comment">%        x1+x2&lt;=2</span>
+<span class="comment">%       xi&gt;=0  i=1-2</span>
+<span class="comment">% Phase-T: Input the Parameter</span>
+clc
+clear <span class="string">all</span>
+Noofvariables=2;
+variables={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'sol'</span>};
+c=[1 2]; <span class="comment">% cost of objective function</span>
+Abar=[-1 1;1 1];<span class="comment">% const coeff</span>
+B=[1;2]; <span class="comment">%RHS of constraints</span>
+s=eye(size(Abar,1));
+A=[Abar s B];
+Cost=zeros(1,size(A,2));
+Cost(1:Noofvariables)=c;
+<span class="comment">% Contraints BV</span>
+BV=Noofvariables+1:1:size(A,2)-1;
+<span class="comment">% To calculate Zj-Cj</span>
+ZjCj=Cost(BV)*A-Cost;
+<span class="comment">% For printing 1st simplex table</span>
+ZCj=[ZjCj;A];
+simplextable=array2table(ZCj);
+simplextable.Properties.VariableNames(1:size(ZCj,2))=variables;
+<span class="comment">% Start simplex Algorithm</span>
+Run=true;
+<span class="keyword">while</span> Run
+    <span class="keyword">if</span> any(ZjCj&lt;0) <span class="comment">% to check if any negative value there</span>
+        fprintf(<span class="string">'The current BFS is not optimal\n'</span>)
+        fprintf(<span class="string">'Next iteration required \n'</span>)
+        disp(<span class="string">'Old basic variable (BV)='</span>)
+        disp(BV)
+        <span class="comment">% For finding entering variable</span>
+        Zc=ZjCj(1:end-1);
+        [Ent_col pvt_col]=min(Zc);
+        fprintf(<span class="string">'The most negative value in Zj-Cj row is %d and coresponding to column %d \n'</span>,Ent_col,pvt_col)
+        fprintf(<span class="string">'Entering variable is %d \n'</span>,pvt_col)
+        <span class="comment">%For finding the leaving variable</span>
+        sol=A(:,end);
+        column=A(:,pvt_col);
+        <span class="keyword">if</span> all(column&lt;=0)
+            error(<span class="string">'The LPP has unbounded solution \n since all enteries are &lt;=0 in %d \n'</span>,pvt_col)
+        <span class="keyword">else</span>
+            <span class="keyword">for</span> i=1:size(column,1)
+                <span class="keyword">if</span> column(i)&gt;0
+                    ratio(i)=sol(i)./column(i)
+                <span class="keyword">else</span>
+                    ratio(i)=inf
+                <span class="keyword">end</span>
+            <span class="keyword">end</span>
+            <span class="comment">% To finding minimmum ratio</span>
+            [minratio pvt_row]=min(ratio);
+            fprintf(<span class="string">'The minimum ratio corresponding to pivot row %d \n '</span>,pvt_row)
+            fprintf(<span class="string">'leaving variable is %d \n '</span>,BV(pvt_row))
+            BV(pvt_row)=pvt_col;
+            disp(<span class="string">'New basic variable(BV)=='</span>)
+            disp(BV)
+            pvt_key=A(pvt_row,pvt_col)
+            <span class="comment">% To update table for next iteration</span>
+            A(pvt_row,:)=A(pvt_row,:)./pvt_key
+            <span class="keyword">for</span> i=1:size(A,1)
+                <span class="keyword">if</span> i~=pvt_row
+                    A(i,:)=A(i,:)-A(i,pvt_col).*A(pvt_row,:);
+                <span class="keyword">end</span>
+                ZjCj=ZjCj-ZjCj(pvt_col).*A(pvt_row,:);
+            <span class="keyword">end</span>
+
+                 <span class="keyword">end</span>
+    <span class="keyword">else</span>
+        Run= false;
+        ZCj=[ZjCj;A]
+        FinalTable=array2table(ZCj);
+        FinalTable.Properties.VariableNames(1:size(ZCj,2))=variables
+        FinalTable.Properties.RowNames(1:size(ZCj,1))={<span class="string">'Zj-Cj'</span>,<span class="string">'x1'</span>,<span class="string">'x2'</span>}
+        BFS=zeros(1,size(A,2));
+        BFS(BV)=A(:,end)
+        BFS(end)=sum(BFS.*Cost);
+        currentBFS=array2table(BFS);
+        currentBFS.Properties.VariableNames(1:size(currentBFS,2))={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'Opt.Val of Z'</span>}
+        disp(<span class="string">'Optimal sol is reached'</span>)
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre>
+<pre class="codeoutput">The current BFS is not optimal
+Next iteration required 
+Old basic variable (BV)=
+     3     4
+
+The most negative value in Zj-Cj row is -2 and coresponding to column 2 
+Entering variable is 2 
+
+ratio =
+
+     1
+
+
+ratio =
+
+     1     2
+
+The minimum ratio corresponding to pivot row 1 
+ leaving variable is 3 
+ New basic variable(BV)==
+     2     4
+
+
+pvt_key =
+
+     1
+
+
+A =
+
+    -1     1     1     0     1
+     1     1     0     1     2
+
+The current BFS is not optimal
+Next iteration required 
+Old basic variable (BV)=
+     2     4
+
+The most negative value in Zj-Cj row is -3 and coresponding to column 1 
+Entering variable is 1 
+
+ratio =
+
+   Inf     2
+
+
+ratio =
+
+       Inf    0.5000
+
+The minimum ratio corresponding to pivot row 2 
+ leaving variable is 4 
+ New basic variable(BV)==
+     2     1
+
+
+pvt_key =
+
+     2
+
+
+A =
+
+   -1.0000    1.0000    1.0000         0    1.0000
+    1.0000         0   -0.5000    0.5000    0.5000
+
+
+ZCj =
+
+         0         0    0.5000    1.5000    3.5000
+         0    1.0000    0.5000    0.5000    1.5000
+    1.0000         0   -0.5000    0.5000    0.5000
+
+
+FinalTable =
+
+  3&times;5 table
+
+    x1    x2     s1     s2     sol
+    __    __    ____    ___    ___
+
+    0     0      0.5    1.5    3.5
+    0     1      0.5    0.5    1.5
+    1     0     -0.5    0.5    0.5
+
+
+FinalTable =
+
+  3&times;5 table
+
+             x1    x2     s1     s2     sol
+             __    __    ____    ___    ___
+
+    Zj-Cj    0     0      0.5    1.5    3.5
+    x1       0     1      0.5    0.5    1.5
+    x2       1     0     -0.5    0.5    0.5
+
+
+BFS =
+
+    0.5000    1.5000         0         0         0
+
+
+currentBFS =
+
+  1&times;5 table
+
+    x1     x2     s1    s2    Opt.Val of Z
+    ___    ___    __    __    ____________
+
+    0.5    1.5    0     0         3.5     
+
+Optimal sol is reached
+</pre>
+<h2 id="2">QUESTION-2</h2>
+<pre class="codeinput">
+<span class="comment">%Solve LPP using simplex using Simplex Algo</span>
+<span class="comment">% Min Z= x1-3x2+2x3</span>
+<span class="comment">% s.t.  3x1-x2+2x3&lt;=7</span>
+<span class="comment">%       -2x1+4x2&lt;=12</span>
+<span class="comment">%       -4x1+3x2+8x3&lt;=10</span>
+<span class="comment">%       xi&gt;=0  i=1-3</span>
+<span class="comment">% Phase-T: Input the Parameter</span>
+clc
+clear <span class="string">all</span>
+Noofvariables=3;
+variables={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'x3'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'s3'</span>,<span class="string">'sol'</span>};
+c=[-1 3 -2]; <span class="comment">% cost of objective func</span>
+Abar=[3 -1 2;-2 4 0;-4 3 8];<span class="comment">% const coeff</span>
+B=[7;12;10]; <span class="comment">%RHS of constraints</span>
+s=eye(size(Abar,1));
+A=[Abar s B];
+Cost=zeros(1,size(A,2));
+Cost(1:Noofvariables)=c;
+<span class="comment">% Contraints BV</span>
+BV=Noofvariables+1:1:size(A,2)-1;
+<span class="comment">% To calculate Zj-Cj</span>
+ZjCj=Cost(BV)*A-Cost;
+<span class="comment">% For printing 1st simplex table</span>
+ZCj=[ZjCj;A];
+simplextable=array2table(ZCj);
+simplextable.Properties.VariableNames(1:size(ZCj,2))=variables;
+<span class="comment">% Start simplex Algorithm</span>
+Run=true;
+<span class="keyword">while</span> Run
+    <span class="keyword">if</span> any(ZjCj&lt;0) <span class="comment">% to check if any negative value there</span>
+        fprintf(<span class="string">'The current BFS is not optimal\n'</span>)
+        fprintf(<span class="string">'Next iteration required \n'</span>)
+        disp(<span class="string">'Old basic variable (BV)='</span>)
+        disp(BV)
+        <span class="comment">% For finding entering variable</span>
+        Zc=ZjCj(1:end-1);
+        [Ent_col pvt_col]=min(Zc);
+        fprintf(<span class="string">'The most negative value in Zj-Cj row is %d and coresponding to column %d \n'</span>,Ent_col,pvt_col)
+        fprintf(<span class="string">'Entering variable is %d \n'</span>,pvt_col)
+        <span class="comment">%For finding the leaving variable</span>
+        sol=A(:,end);
+        column=A(:,pvt_col);
+        <span class="keyword">if</span> all(column&lt;=0)
+            error(<span class="string">'The LPP has unbounded solution \n since all enteries are &lt;=0 in %d \n'</span>,pvt_col)
+        <span class="keyword">else</span>
+            <span class="keyword">for</span> i=1:size(column,1)
+                <span class="keyword">if</span> column(i)&gt;0
+                    ratio(i)=sol(i)./column(i)
+                <span class="keyword">else</span>
+                    ratio(i)=inf
+                <span class="keyword">end</span>
+            <span class="keyword">end</span>
+            <span class="comment">% To finding minimmum ratio</span>
+            [minratio pvt_row]=min(ratio);
+            fprintf(<span class="string">'The minimum ratio corresponding to pivot row %d \n '</span>,pvt_row)
+            fprintf(<span class="string">'leaving variable is %d \n '</span>,BV(pvt_row))
+            BV(pvt_row)=pvt_col;
+            disp(<span class="string">'New basic variable(BV)=='</span>)
+            disp(BV)
+            pvt_key=A(pvt_row,pvt_col)
+            <span class="comment">% To update table for next iteration</span>
+            A(pvt_row,:)=A(pvt_row,:)./pvt_key
+            <span class="keyword">for</span> i=1:size(A,1)
+                <span class="keyword">if</span> i~=pvt_row
+                    A(i,:)=A(i,:)-A(i,pvt_col).*A(pvt_row,:);
+                <span class="keyword">end</span>
+                ZjCj=ZjCj-ZjCj(pvt_col).*A(pvt_row,:);
+            <span class="keyword">end</span>
+
+                 <span class="keyword">end</span>
+    <span class="keyword">else</span>
+        Run= false;
+        ZCj=[ZjCj;A]
+        FinalTable=array2table(ZCj);
+        FinalTable.Properties.VariableNames(1:size(ZCj,2))=variables
+        FinalTable.Properties.RowNames(1:size(ZCj,1))={<span class="string">'Zj-Cj'</span>,<span class="string">'x1'</span>,<span class="string">'s2'</span>,<span class="string">'x3'</span>}
+        BFS=zeros(1,size(A,2));
+        BFS(BV)=A(:,end)
+        BFS(end)=0-sum(BFS.*Cost);
+        currentBFS=array2table(BFS);
+        currentBFS.Properties.VariableNames(1:size(currentBFS,2))={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'x3'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'s3'</span>,<span class="string">'Opt.Val of Z'</span>}
+        disp(<span class="string">'Optimal sol is reached'</span>)
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre>
+<pre class="codeoutput">The current BFS is not optimal
+Next iteration required 
+Old basic variable (BV)=
+     4     5     6
+
+The most negative value in Zj-Cj row is -3 and coresponding to column 2 
+Entering variable is 2 
+
+ratio =
+
+   Inf
+
+
+ratio =
+
+   Inf     3
+
+
+ratio =
+
+       Inf    3.0000    3.3333
+
+The minimum ratio corresponding to pivot row 2 
+ leaving variable is 5 
+ New basic variable(BV)==
+     4     2     6
+
+
+pvt_key =
+
+     4
+
+
+A =
+
+    3.0000   -1.0000    2.0000    1.0000         0         0    7.0000
+   -0.5000    1.0000         0         0    0.2500         0    3.0000
+   -4.0000    3.0000    8.0000         0         0    1.0000   10.0000
+
+The current BFS is not optimal
+Next iteration required 
+Old basic variable (BV)=
+     4     2     6
+
+The most negative value in Zj-Cj row is -5.000000e-01 and coresponding to column 1 
+Entering variable is 1 
+
+ratio =
+
+    4.0000    3.0000    3.3333
+
+
+ratio =
+
+    4.0000       Inf    3.3333
+
+
+ratio =
+
+     4   Inf   Inf
+
+The minimum ratio corresponding to pivot row 1 
+ leaving variable is 4 
+ New basic variable(BV)==
+     1     2     6
+
+
+pvt_key =
+
+    2.5000
+
+
+A =
+
+    1.0000         0    0.8000    0.4000    0.1000         0    4.0000
+   -0.5000    1.0000         0         0    0.2500         0    3.0000
+   -2.5000         0    8.0000         0   -0.7500    1.0000    1.0000
+
+
+ZCj =
+
+         0         0    2.4000    0.2000    0.8000         0   11.0000
+    1.0000         0    0.8000    0.4000    0.1000         0    4.0000
+         0    1.0000    0.4000    0.2000    0.3000         0    5.0000
+         0         0   10.0000    1.0000   -0.5000    1.0000   11.0000
+
+
+FinalTable =
+
+  4&times;7 table
+
+    x1    x2    x3     s1      s2     s3    sol
+    __    __    ___    ___    ____    __    ___
+
+    0     0     2.4    0.2     0.8    0     11 
+    1     0     0.8    0.4     0.1    0      4 
+    0     1     0.4    0.2     0.3    0      5 
+    0     0      10      1    -0.5    1     11 
+
+
+FinalTable =
+
+  4&times;7 table
+
+             x1    x2    x3     s1      s2     s3    sol
+             __    __    ___    ___    ____    __    ___
+
+    Zj-Cj    0     0     2.4    0.2     0.8    0     11 
+    x1       1     0     0.8    0.4     0.1    0      4 
+    s2       0     1     0.4    0.2     0.3    0      5 
+    x3       0     0      10      1    -0.5    1     11 
+
+
+BFS =
+
+     4     5     0     0     0    11     0
+
+
+currentBFS =
+
+  1&times;7 table
+
+    x1    x2    x3    s1    s2    s3    Opt.Val of Z
+    __    __    __    __    __    __    ____________
+
+    4     5     0     0     0     11        -11     
+
+Optimal sol is reached
+</pre>
+<h2 id="3">QUESTION-3</h2>
+<p>Solve LPP using simplex using Simplex Algo Max Z= 5x1+3x2 s.t. 3x1+5x2&lt;=15 5x1+2x2&lt;=10 xi&gt;=0 i=1-2 Phase-T: Input the Parameter</p>
+<pre class="codeinput">clc
+clear <span class="string">all</span>
+Noofvariables=2;
+variables={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'sol'</span>};
+c=[5 3]; <span class="comment">% cost of objective func</span>
+Abar=[3 5;5 2];<span class="comment">% const coeff</span>
+B=[15;10]; <span class="comment">%RHS of constraints</span>
+s=eye(size(Abar,1));
+A=[Abar s B];
+Cost=zeros(1,size(A,2));
+Cost(1:Noofvariables)=c;
+<span class="comment">% Contraints BV</span>
+BV=Noofvariables+1:1:size(A,2)-1;
+<span class="comment">% To calculate Zj-Cj</span>
+ZjCj=Cost(BV)*A-Cost;
+<span class="comment">% For printing 1st simplex table</span>
+ZCj=[ZjCj;A];
+simplextable=array2table(ZCj);
+simplextable.Properties.VariableNames(1:size(ZCj,2))=variables;
+<span class="comment">% Start simplex Algorithm</span>
+Run=true;
+<span class="keyword">while</span> Run
+    <span class="keyword">if</span> any(ZjCj&lt;0) <span class="comment">% to check if any negative value there</span>
+        fprintf(<span class="string">'The current BFS is not optimal\n'</span>)
+        fprintf(<span class="string">'Next iteration required \n'</span>)
+        disp(<span class="string">'Old basic variable (BV)='</span>)
+        disp(BV)
+        <span class="comment">% For finding entering variable</span>
+        Zc=ZjCj(1:end-1);
+        [Ent_col pvt_col]=min(Zc);
+        fprintf(<span class="string">'The most negative value in Zj-Cj row is %d and coresponding to column %d \n'</span>,Ent_col,pvt_col)
+        fprintf(<span class="string">'Entering variable is %d \n'</span>,pvt_col)
+        <span class="comment">%For finding the leaving variable</span>
+        sol=A(:,end);
+        column=A(:,pvt_col);
+        <span class="keyword">if</span> all(column&lt;=0)
+            error(<span class="string">'The LPP has unbounded solution \n since all enteries are &lt;=0 in %d \n'</span>,pvt_col)
+        <span class="keyword">else</span>
+            <span class="keyword">for</span> i=1:size(column,1)
+                <span class="keyword">if</span> column(i)&gt;0
+                    ratio(i)=sol(i)./column(i)
+                <span class="keyword">else</span>
+                    ratio(i)=inf
+                <span class="keyword">end</span>
+            <span class="keyword">end</span>
+            <span class="comment">% To finding minimmum ratio</span>
+            [minratio pvt_row]=min(ratio);
+            fprintf(<span class="string">'The minimum ratio corresponding to pivot row %d \n '</span>,pvt_row)
+            fprintf(<span class="string">'leaving variable is %d \n '</span>,BV(pvt_row))
+            BV(pvt_row)=pvt_col;
+            disp(<span class="string">'New basic variable(BV)=='</span>)
+            disp(BV)
+            pvt_key=A(pvt_row,pvt_col)
+            <span class="comment">% To update table for next iteration</span>
+            A(pvt_row,:)=A(pvt_row,:)./pvt_key
+            <span class="keyword">for</span> i=1:size(A,1)
+                <span class="keyword">if</span> i~=pvt_row
+                    A(i,:)=A(i,:)-A(i,pvt_col).*A(pvt_row,:);
+                <span class="keyword">end</span>
+                ZjCj=ZjCj-ZjCj(pvt_col).*A(pvt_row,:);
+            <span class="keyword">end</span>
+
+                 <span class="keyword">end</span>
+    <span class="keyword">else</span>
+        Run= false;
+        ZCj=[ZjCj;A]
+        FinalTable=array2table(ZCj);
+        FinalTable.Properties.VariableNames(1:size(ZCj,2))=variables
+        FinalTable.Properties.RowNames(1:size(ZCj,1))={<span class="string">'Zj-Cj'</span>,<span class="string">'x1'</span>,<span class="string">'x2'</span>}
+        BFS=zeros(1,size(A,2));
+        BFS(BV)=A(:,end)
+        BFS(end)=sum(BFS.*Cost);
+        currentBFS=array2table(BFS);
+        currentBFS.Properties.VariableNames(1:size(currentBFS,2))={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'Opt.Val of Z'</span>}
+        disp(<span class="string">'Optimal sol is reached'</span>)
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre>
+<pre class="codeoutput">The current BFS is not optimal
+Next iteration required 
+Old basic variable (BV)=
+     3     4
+
+The most negative value in Zj-Cj row is -5 and coresponding to column 1 
+Entering variable is 1 
+
+ratio =
+
+     5
+
+
+ratio =
+
+     5     2
+
+The minimum ratio corresponding to pivot row 2 
+ leaving variable is 4 
+ New basic variable(BV)==
+     3     1
+
+
+pvt_key =
+
+     5
+
+
+A =
+
+    3.0000    5.0000    1.0000         0   15.0000
+    1.0000    0.4000         0    0.2000    2.0000
+
+The current BFS is not optimal
+Next iteration required 
+Old basic variable (BV)=
+     3     1
+
+The most negative value in Zj-Cj row is -1 and coresponding to column 2 
+Entering variable is 2 
+
+ratio =
+
+    2.3684    2.0000
+
+
+ratio =
+
+    2.3684    5.0000
+
+The minimum ratio corresponding to pivot row 1 
+ leaving variable is 3 
+ New basic variable(BV)==
+     2     1
+
+
+pvt_key =
+
+    3.8000
+
+
+A =
+
+         0    1.0000    0.2632   -0.1579    2.3684
+    1.0000    0.4000         0    0.2000    2.0000
+
+
+ZCj =
+
+         0         0    0.2632    0.8421   12.3684
+         0    1.0000    0.2632   -0.1579    2.3684
+    1.0000         0   -0.1053    0.2632    1.0526
+
+
+FinalTable =
+
+  3&times;5 table
+
+    x1    x2       s1          s2        sol  
+    __    __    ________    ________    ______
+
+    0     0      0.26316     0.84211    12.368
+    0     1      0.26316    -0.15789    2.3684
+    1     0     -0.10526     0.26316    1.0526
+
+
+FinalTable =
+
+  3&times;5 table
+
+             x1    x2       s1          s2        sol  
+             __    __    ________    ________    ______
+
+    Zj-Cj    0     0      0.26316     0.84211    12.368
+    x1       0     1      0.26316    -0.15789    2.3684
+    x2       1     0     -0.10526     0.26316    1.0526
+
+
+BFS =
+
+    1.0526    2.3684         0         0         0
+
+
+currentBFS =
+
+  1&times;5 table
+
+      x1        x2      s1    s2    Opt.Val of Z
+    ______    ______    __    __    ____________
+
+    1.0526    2.3684    0     0        12.368   
+
+Optimal sol is reached
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% SIMPLEX METHOD
+%% QUESTION-1
+% Solve LPP using simplex using Simplex Algo
+%MAx Z= x1+2x2
+% s.t.  -x1+x2<=1
+%        x1+x2<=2
+%       xi>=0  i=1-2
+% Phase-T: Input the Parameter
+clc
+clear all
+Noofvariables=2;
+variables={'x1','x2','s1','s2','sol'};
+c=[1 2]; % cost of objective function
+Abar=[-1 1;1 1];% const coeff
+B=[1;2]; %RHS of constraints
+s=eye(size(Abar,1));
+A=[Abar s B];
+Cost=zeros(1,size(A,2));
+Cost(1:Noofvariables)=c;
+% Contraints BV
+BV=Noofvariables+1:1:size(A,2)-1;
+% To calculate Zj-Cj
+ZjCj=Cost(BV)*A-Cost;
+% For printing 1st simplex table
+ZCj=[ZjCj;A];
+simplextable=array2table(ZCj);
+simplextable.Properties.VariableNames(1:size(ZCj,2))=variables;
+% Start simplex Algorithm
+Run=true;
+while Run
+    if any(ZjCj<0) % to check if any negative value there
+        fprintf('The current BFS is not optimal\n')
+        fprintf('Next iteration required \n')
+        disp('Old basic variable (BV)=')
+        disp(BV)
+        % For finding entering variable
+        Zc=ZjCj(1:end-1);
+        [Ent_col pvt_col]=min(Zc);
+        fprintf('The most negative value in Zj-Cj row is %d and coresponding to column %d \n',Ent_col,pvt_col)
+        fprintf('Entering variable is %d \n',pvt_col)
+        %For finding the leaving variable
+        sol=A(:,end);
+        column=A(:,pvt_col);
+        if all(column<=0)
+            error('The LPP has unbounded solution \n since all enteries are <=0 in %d \n',pvt_col)
+        else
+            for i=1:size(column,1)
+                if column(i)>0
+                    ratio(i)=sol(i)./column(i)
+                else
+                    ratio(i)=inf
+                end
+            end
+            % To finding minimmum ratio
+            [minratio pvt_row]=min(ratio);
+            fprintf('The minimum ratio corresponding to pivot row %d \n ',pvt_row)
+            fprintf('leaving variable is %d \n ',BV(pvt_row))
+            BV(pvt_row)=pvt_col;
+            disp('New basic variable(BV)==')
+            disp(BV)
+            pvt_key=A(pvt_row,pvt_col)
+            % To update table for next iteration
+            A(pvt_row,:)=A(pvt_row,:)./pvt_key
+            for i=1:size(A,1)
+                if i~=pvt_row
+                    A(i,:)=A(i,:)-A(i,pvt_col).*A(pvt_row,:);
+                end
+                ZjCj=ZjCj-ZjCj(pvt_col).*A(pvt_row,:);
+            end
+    
+                 end
+    else
+        Run= false;
+        ZCj=[ZjCj;A]
+        FinalTable=array2table(ZCj);
+        FinalTable.Properties.VariableNames(1:size(ZCj,2))=variables
+        FinalTable.Properties.RowNames(1:size(ZCj,1))={'Zj-Cj','x1','x2'}
+        BFS=zeros(1,size(A,2));
+        BFS(BV)=A(:,end)
+        BFS(end)=sum(BFS.*Cost);
+        currentBFS=array2table(BFS);
+        currentBFS.Properties.VariableNames(1:size(currentBFS,2))={'x1','x2','s1','s2','Opt.Val of Z'}
+        disp('Optimal sol is reached')
+    end
+end
+
+%% QUESTION-2
+%Solve LPP using simplex using Simplex Algo
+% Min Z= x1-3x2+2x3
+% s.t.  3x1-x2+2x3<=7
+%       -2x1+4x2<=12
+%       -4x1+3x2+8x3<=10
+%       xi>=0  i=1-3
+% Phase-T: Input the Parameter
+clc
+clear all
+Noofvariables=3;
+variables={'x1','x2','x3','s1','s2','s3','sol'};
+c=[-1 3 -2]; % cost of objective func
+Abar=[3 -1 2;-2 4 0;-4 3 8];% const coeff
+B=[7;12;10]; %RHS of constraints
+s=eye(size(Abar,1));
+A=[Abar s B];
+Cost=zeros(1,size(A,2));
+Cost(1:Noofvariables)=c;
+% Contraints BV
+BV=Noofvariables+1:1:size(A,2)-1;
+% To calculate Zj-Cj
+ZjCj=Cost(BV)*A-Cost;
+% For printing 1st simplex table
+ZCj=[ZjCj;A];
+simplextable=array2table(ZCj);
+simplextable.Properties.VariableNames(1:size(ZCj,2))=variables;
+% Start simplex Algorithm
+Run=true;
+while Run
+    if any(ZjCj<0) % to check if any negative value there
+        fprintf('The current BFS is not optimal\n')
+        fprintf('Next iteration required \n')
+        disp('Old basic variable (BV)=')
+        disp(BV)
+        % For finding entering variable
+        Zc=ZjCj(1:end-1);
+        [Ent_col pvt_col]=min(Zc);
+        fprintf('The most negative value in Zj-Cj row is %d and coresponding to column %d \n',Ent_col,pvt_col)
+        fprintf('Entering variable is %d \n',pvt_col)
+        %For finding the leaving variable
+        sol=A(:,end);
+        column=A(:,pvt_col);
+        if all(column<=0)
+            error('The LPP has unbounded solution \n since all enteries are <=0 in %d \n',pvt_col)
+        else
+            for i=1:size(column,1)
+                if column(i)>0
+                    ratio(i)=sol(i)./column(i)
+                else
+                    ratio(i)=inf
+                end
+            end
+            % To finding minimmum ratio
+            [minratio pvt_row]=min(ratio);
+            fprintf('The minimum ratio corresponding to pivot row %d \n ',pvt_row)
+            fprintf('leaving variable is %d \n ',BV(pvt_row))
+            BV(pvt_row)=pvt_col;
+            disp('New basic variable(BV)==')
+            disp(BV)
+            pvt_key=A(pvt_row,pvt_col)
+            % To update table for next iteration
+            A(pvt_row,:)=A(pvt_row,:)./pvt_key
+            for i=1:size(A,1)
+                if i~=pvt_row
+                    A(i,:)=A(i,:)-A(i,pvt_col).*A(pvt_row,:);
+                end
+                ZjCj=ZjCj-ZjCj(pvt_col).*A(pvt_row,:);
+            end
+    
+                 end
+    else
+        Run= false;
+        ZCj=[ZjCj;A]
+        FinalTable=array2table(ZCj);
+        FinalTable.Properties.VariableNames(1:size(ZCj,2))=variables
+        FinalTable.Properties.RowNames(1:size(ZCj,1))={'Zj-Cj','x1','s2','x3'}
+        BFS=zeros(1,size(A,2));
+        BFS(BV)=A(:,end)
+        BFS(end)=0-sum(BFS.*Cost);
+        currentBFS=array2table(BFS);
+        currentBFS.Properties.VariableNames(1:size(currentBFS,2))={'x1','x2','x3','s1','s2','s3','Opt.Val of Z'}
+        disp('Optimal sol is reached')
+    end
+end
+
+%% QUESTION-3
+% Solve LPP using simplex using Simplex Algo
+% Max Z= 5x1+3x2
+% s.t.  3x1+5x2<=15
+%        5x1+2x2<=10
+%       xi>=0  i=1-2
+% Phase-T: Input the Parameter
+clc
+clear all
+Noofvariables=2;
+variables={'x1','x2','s1','s2','sol'};
+c=[5 3]; % cost of objective func
+Abar=[3 5;5 2];% const coeff
+B=[15;10]; %RHS of constraints
+s=eye(size(Abar,1));
+A=[Abar s B];
+Cost=zeros(1,size(A,2));
+Cost(1:Noofvariables)=c;
+% Contraints BV
+BV=Noofvariables+1:1:size(A,2)-1;
+% To calculate Zj-Cj
+ZjCj=Cost(BV)*A-Cost;
+% For printing 1st simplex table
+ZCj=[ZjCj;A];
+simplextable=array2table(ZCj);
+simplextable.Properties.VariableNames(1:size(ZCj,2))=variables;
+% Start simplex Algorithm
+Run=true;
+while Run
+    if any(ZjCj<0) % to check if any negative value there
+        fprintf('The current BFS is not optimal\n')
+        fprintf('Next iteration required \n')
+        disp('Old basic variable (BV)=')
+        disp(BV)
+        % For finding entering variable
+        Zc=ZjCj(1:end-1);
+        [Ent_col pvt_col]=min(Zc);
+        fprintf('The most negative value in Zj-Cj row is %d and coresponding to column %d \n',Ent_col,pvt_col)
+        fprintf('Entering variable is %d \n',pvt_col)
+        %For finding the leaving variable
+        sol=A(:,end);
+        column=A(:,pvt_col);
+        if all(column<=0)
+            error('The LPP has unbounded solution \n since all enteries are <=0 in %d \n',pvt_col)
+        else
+            for i=1:size(column,1)
+                if column(i)>0
+                    ratio(i)=sol(i)./column(i)
+                else
+                    ratio(i)=inf
+                end
+            end
+            % To finding minimmum ratio
+            [minratio pvt_row]=min(ratio);
+            fprintf('The minimum ratio corresponding to pivot row %d \n ',pvt_row)
+            fprintf('leaving variable is %d \n ',BV(pvt_row))
+            BV(pvt_row)=pvt_col;
+            disp('New basic variable(BV)==')
+            disp(BV)
+            pvt_key=A(pvt_row,pvt_col)
+            % To update table for next iteration
+            A(pvt_row,:)=A(pvt_row,:)./pvt_key
+            for i=1:size(A,1)
+                if i~=pvt_row
+                    A(i,:)=A(i,:)-A(i,pvt_col).*A(pvt_row,:);
+                end
+                ZjCj=ZjCj-ZjCj(pvt_col).*A(pvt_row,:);
+            end
+    
+                 end
+    else
+        Run= false;
+        ZCj=[ZjCj;A]
+        FinalTable=array2table(ZCj);
+        FinalTable.Properties.VariableNames(1:size(ZCj,2))=variables
+        FinalTable.Properties.RowNames(1:size(ZCj,1))={'Zj-Cj','x1','x2'}
+        BFS=zeros(1,size(A,2));
+        BFS(BV)=A(:,end)
+        BFS(end)=sum(BFS.*Cost);
+        currentBFS=array2table(BFS);
+        currentBFS.Properties.VariableNames(1:size(currentBFS,2))={'x1','x2','s1','s2','Opt.Val of Z'}
+        disp('Optimal sol is reached')
+    end
+end
+
+##### SOURCE END #####
+-->
+</body>
+</html>

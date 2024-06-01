@@ -1,0 +1,28 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+subtract2nums.bin -- emu8086 assembler version: 4.08  
+ 
+[ 04-05-2024  --  10:38:09 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]    0000: B9 00 00                              MOV CX, 0000    ; Initialize Count register with 0000H
+[   2]    0003: A1 B8 0B                              MOV AX, [3000]  ; Load the first number into AX
+[   3]    0006: 8B 1E BA 0B                           MOV BX, [3002]  ; Load second number into BX
+[   4]    000A: 2B C3                                 SUB AX, BX      ; Subtract BX from AX, and store to AX
+[   5]    000C: 73 01                                 JNC STORE       ; If CY=0, jump to STORE
+[   6]    000E: 41                                    INC CX          ; Increase the count register by 1
+[   7]    000F: A3 BC 0B                              STORE:  MOV [3004], AX  ; Store the AX content into the memory location
+[   8]    0012: 89 0E BE 0B                           MOV [3006], CX  ; Store CX value into the next memory location
+[   9]    0016: F4                                    HLT             ; Terminate the program
+[  10]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================

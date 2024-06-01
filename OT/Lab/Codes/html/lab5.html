@@ -1,0 +1,672 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>SHREEYA CHATTERJI</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-02-14">
+<meta name="DC.source" content="lab5.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>SHREEYA CHATTERJI</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">QUESTION 1</a>
+</li>
+<li>
+<a href="#2">QUESTION 2</a>
+</li>
+<li>
+<a href="#3">QUESTION 3</a>
+</li>
+<li>
+<a href="#4">QUESTION 4</a>
+</li>
+</ul>
+</div>
+<h2 id="1">QUESTION 1</h2>
+<p>TO OBTAIN BFS USING ALGEBRAIC METHOD Question Max Z= 2x1+3x2+4x3+7x4 st: 2x1+3x2-x3+4x4=8 x1-2x2+6x3-7x4=-3 %xi&gt;=0; i=1,2,3,4</p>
+<pre class="codeinput">clc
+clear <span class="string">all</span>
+format <span class="string">short</span>
+<span class="comment">% PHASE-1: Input the parameter</span>
+c=[2,3,4,7]; <span class="comment">%Objective function</span>
+A=[2 3 -1 4; -1 2 -6 7]; <span class="comment">%Coefficient Matrix</span>
+B=[8;3];<span class="comment">%RHS of const</span>
+objective=1; <span class="comment">%1 for max and -1 for minimization problem</span>
+<span class="comment">%Number of possible solutions: nCm:nchoosek</span>
+
+<span class="comment">% PHASE-2: Number of constraint and variable</span>
+m=size(A,1); <span class="comment">%number of constraints</span>
+n=size(A,2); <span class="comment">% number of variables</span>
+
+<span class="comment">% PHASE-3: Compute the ncm Basic Solutions: The max number of basic</span>
+<span class="comment">% solutions will always be nCm</span>
+nab=nchoosek(n,m); <span class="comment">%total number of atmost basic solution</span>
+t=nchoosek(1:n,m); <span class="comment">%from this we can extract our set of variables that we need to equate to zero</span>
+
+<span class="comment">% PHASE-4:Construct the basic solution</span>
+<span class="comment">% for this n&gt;m must be satisfied</span>
+sol=[]; <span class="comment">%default solution is zero (Empty Matrix)</span>
+<span class="keyword">if</span> n&gt;=m <span class="comment">%if this is not statisfied then we can not have solutions</span>
+    <span class="keyword">for</span> i=1:nab
+    y=zeros(n,1);
+    <span class="comment">%selecting all rows for a specific column where for t we are taking all columns for a</span>
+    <span class="comment">% specific row (which is basically the variables that are equated to zero)</span>
+    X=(A(:,t(i,:)))\B;
+    <span class="comment">%fetching values from A matrix for the rows correspond</span>
+    <span class="comment">%checking feasibility condition</span>
+    <span class="keyword">if</span> all(X&gt;=0 &amp; X~=inf &amp; X~=-inf)
+        y(t(i,:))=X;
+        sol=[sol y];
+    <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    disp(<span class="string">"Solution: "</span>);
+    disp(sol);
+<span class="keyword">else</span>
+    error(<span class="string">'No. of variables is less than number of constraints'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> any(X == 0)
+        fprintf(<span class="string">"DEGENERATE SOLUTION"</span>);
+<span class="keyword">else</span>
+    fprintf(<span class="string">'NON-DEGENERATE SOLUTION\n'</span>);
+<span class="keyword">end</span>
+<span class="comment">%PHASE 5: To find optimal solution</span>
+Z=c*sol; <span class="comment">%finding the values corresponding to each point</span>
+<span class="keyword">if</span>(objective==1)
+    [Zmax,Zindex]=max(Z);<span class="comment">%storing the max value of Z and the col in which this max value resides</span>
+<span class="keyword">else</span>
+    [Zmax,Zindex]=min(Z);<span class="comment">%storing the min value of Z and the col in which this min value resides</span>
+<span class="keyword">end</span>
+BFS=sol(:,Zindex);<span class="comment">%basic feasible solution</span>
+[Optimal_Value]=[BFS' Zmax];
+Optimal_bfs=array2table(Optimal_Value);
+Optimal_bfs.Properties.VariableNames(1:size(Optimal_bfs,2))={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'x3'</span>,<span class="string">'x4'</span>,<span class="string">'Optimal Value of Z'</span>};
+disp(Optimal_bfs);
+</pre>
+<pre class="codeoutput">Solution: 
+    1.0000    2.4444         0         0
+    2.0000         0    2.8125         0
+         0         0    0.4375    2.5882
+         0    0.7778         0    2.6471
+
+NON-DEGENERATE SOLUTION
+    x1    x2      x3        x4      Optimal Value of Z
+    __    __    ______    ______    __________________
+
+    0     0     2.5882    2.6471          28.882      
+
+</pre>
+<h2 id="2">QUESTION 2</h2>
+<p>TO OBTAIN BFS USING ALGEBRAIC METHOD Question 2 Max Z= -x1+2x2-x3 st: x1+s1=4 x2+s2=4 -x1+x2+s3=6 -x1+2x3+s4=4 x1,x2,x3&gt;=0</p>
+<pre class="codeinput">clc
+clear <span class="string">all</span>
+format <span class="string">short</span>
+<span class="comment">% PHASE-1: Input the parameter</span>
+c=[-1,2,-1,0,0,0,0]; <span class="comment">%Objective function</span>
+A=[1,0,0,1,0,0,0;0,1,0,0,1,0,0;-1,1,0,0,0,1,0;-1,0,2,0,0,0,1]; <span class="comment">%Coefficient Matrix</span>
+B=[4;4;6;4];<span class="comment">%RHS of const</span>
+objective=1; <span class="comment">%1 for max and -1 for minimization problem</span>
+<span class="comment">%Number of possible solutions: nCm:nchoosek</span>
+
+<span class="comment">% PHASE-2: Number of constraint and variable</span>
+m=size(A,1); <span class="comment">%number of constraints</span>
+n=size(A,2); <span class="comment">% number of variables</span>
+
+<span class="comment">% PHASE-3: Compute the ncm Basic Solutions: The max number of basic</span>
+<span class="comment">% solutions will always be nCm</span>
+nab=nchoosek(n,m); <span class="comment">%total number of atmost basic solution</span>
+t=nchoosek(1:n,m); <span class="comment">%from this we can extract our set of variables that we need to equate to zero</span>
+
+<span class="comment">% PHASE-4:Construct the basic solution</span>
+<span class="comment">% for this n&gt;m must be satisfied</span>
+sol=[]; <span class="comment">%default solution is zero (Empty Matrix)</span>
+<span class="keyword">if</span> n&gt;=m <span class="comment">%if this is not statisfied then we can not have solutions</span>
+    <span class="keyword">for</span> i = 1:nab
+        y = zeros(n, 1);
+        <span class="comment">% Check if the selected variables form a singular matrix</span>
+        <span class="keyword">if</span> rank(A(:, t(i, :))) == m
+            X = A(:, t(i, :)) \ B; <span class="comment">% Solve for basic variables</span>
+            <span class="keyword">if</span> all(X &gt;= 0)
+                y(t(i, :)) = X;
+                sol = [sol y];
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    disp(<span class="string">"Solution: "</span>);
+    disp(sol);
+<span class="keyword">else</span>
+    error(<span class="string">'No. of variables is less than number of constraints'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> any(X == 0)
+        fprintf(<span class="string">"DEGENERATE SOLUTION"</span>);
+<span class="keyword">else</span>
+    fprintf(<span class="string">'NON-DEGENERATE SOLUTION\n'</span>);
+<span class="keyword">end</span>
+<span class="comment">%PHASE 5: To find optimal solution</span>
+Z=c*sol; <span class="comment">%finding the values corresponding to each point</span>
+<span class="keyword">if</span>(objective==1)
+    [Zmax,Zindex]=max(Z);<span class="comment">%storing the max value of Z and the col in which this max value resides</span>
+<span class="keyword">else</span>
+    [Zmax,Zindex]=min(Z);<span class="comment">%storing the min value of Z and the col in which this min value resides</span>
+<span class="keyword">end</span>
+BFS=sol(:,Zindex);<span class="comment">%basic feasible solution</span>
+[Optimal_Value]=[BFS' Zmax];
+Optimal_bfs=array2table(Optimal_Value);
+Optimal_bfs.Properties.VariableNames(1:size(Optimal_bfs,2))={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'x3'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'s3'</span>,<span class="string">'s4'</span>,<span class="string">'Optimal Value of Z'</span>};
+disp(Optimal_bfs);
+</pre>
+<pre class="codeoutput">Solution: 
+     4     4     4     4     0     0     0     0
+     4     4     0     0     4     4     0     0
+     4     0     4     0     2     0     2     0
+     0     0     0     0     4     4     4     4
+     0     0     4     4     0     0     4     4
+     6     6    10    10     2     2     6     6
+     0     8     0     8     0     4     0     4
+
+NON-DEGENERATE SOLUTION
+    x1    x2    x3    s1    s2    s3    s4    Optimal Value of Z
+    __    __    __    __    __    __    __    __________________
+
+    0     4     0     4     0     2     4             8         
+
+</pre>
+<h2 id="3">QUESTION 3</h2>
+<p>TO OBTAIN BFS USING ALGEBRAIC METHOD Question Min Z= 5x2-2x1 st: 2x1+5x2+s1=8 x1+x2+s2=2 %xi&gt;=0</p>
+<pre class="codeinput">clc
+clear <span class="string">all</span>
+format <span class="string">short</span>
+<span class="comment">% PHASE-1: Input the parameter</span>
+c=[-2,5,0,0]; <span class="comment">%Objective function</span>
+A=[2,5,1,0;1,1,0,1]; <span class="comment">%Coefficient Matrix</span>
+B=[8;2];<span class="comment">%RHS of const</span>
+objective=-1; <span class="comment">%1 for max and -1 for minimization problem</span>
+<span class="comment">%Number of possible solutions: nCm:nchoosek</span>
+
+<span class="comment">% PHASE-2: Number of constraint and variable</span>
+m=size(A,1); <span class="comment">%number of constraints</span>
+n=size(A,2); <span class="comment">% number of variables</span>
+
+<span class="comment">% PHASE-3: Compute the ncm Basic Solutions: The max number of basic</span>
+<span class="comment">% solutions will always be nCm</span>
+nab=nchoosek(n,m); <span class="comment">%total number of atmost basic solution</span>
+t=nchoosek(1:n,m); <span class="comment">%from this we can extract our set of variables that we need to equate to zero</span>
+
+<span class="comment">% PHASE-4:Construct the basic solution</span>
+<span class="comment">% for this n&gt;m must be satisfied</span>
+sol=[]; <span class="comment">%default solution is zero (Empty Matrix)</span>
+<span class="keyword">if</span> n&gt;=m <span class="comment">%if this is not statisfied then we can not have solutions</span>
+    <span class="keyword">for</span> i=1:nab
+    y=zeros(n,1);
+    <span class="comment">%selecting all rows for a specific column where for t we are taking all columns for a</span>
+    <span class="comment">% specific row (which is basically the variables that are equated to zero)</span>
+    X=(A(:,t(i,:)))\B;
+    <span class="comment">%fetching values from A matrix for the rows correspond</span>
+    <span class="comment">%checking feasibility condition</span>
+    <span class="keyword">if</span> all(X&gt;=0 &amp; X~=inf &amp; X~=-inf)
+        y(t(i,:))=X;
+        sol=[sol y];
+    <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    disp(<span class="string">"Solution: "</span>);
+    disp(sol);
+<span class="keyword">else</span>
+    error(<span class="string">'No. of variables is less than number of constraints'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> any(X == 0)
+        fprintf(<span class="string">"DEGENERATE SOLUTION\n"</span>);
+<span class="keyword">else</span>
+    fprintf(<span class="string">'NON-DEGENERATE SOLUTION\n'</span>);
+<span class="keyword">end</span>
+
+<span class="comment">%PHASE 5: To find optimal solution</span>
+Z=c*sol; <span class="comment">%finding the values corresponding to each point</span>
+<span class="keyword">if</span>(objective==1)
+    [Zmax,Zindex]=max(Z);<span class="comment">%storing the max value of Z and the col in which this max value resides</span>
+<span class="keyword">else</span>
+    [Zmax,Zindex]=min(Z);<span class="comment">%storing the min value of Z and the col in which this min value resides</span>
+<span class="keyword">end</span>
+<span class="comment">%Optimal BFS</span>
+BFS=sol(:,Zindex);<span class="comment">%basic feasible solution</span>
+[Optimal_Value]=[BFS' Zmax];
+Optimal_bfs=array2table(Optimal_Value);
+Optimal_bfs.Properties.VariableNames(1:size(Optimal_bfs,2))={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'Optimal Value of Z'</span>};
+disp(Optimal_bfs);
+</pre>
+<pre class="codeoutput">Solution: 
+    0.6667    2.0000         0         0
+    1.3333         0    1.6000         0
+         0    4.0000         0    8.0000
+         0         0    0.4000    2.0000
+
+NON-DEGENERATE SOLUTION
+    x1    x2    s1    s2    Optimal Value of Z
+    __    __    __    __    __________________
+
+    2     0     4     0             -4        
+
+</pre>
+<h2 id="4">QUESTION 4</h2>
+<p>TO OBTAIN BFS USING ALGEBRAIC METHOD Question Max Z= x1+x2+x3+0s1+0s2 st: x1+x2+s1=1 -x2+x3+s2=0 %xi&gt;=0</p>
+<pre class="codeinput">clc
+clear <span class="string">all</span>
+format <span class="string">short</span>
+
+<span class="comment">% PHASE-1: Input the parameter</span>
+c=[1,1,1,0,0]; <span class="comment">%Objective function</span>
+A=[1,1,0,1,0;0,-1,1,0,1]; <span class="comment">%Coefficient Matrix</span>
+B=[1;0];<span class="comment">%RHS of const</span>
+objective=1; <span class="comment">%1 for max and -1 for minimization problem</span>
+<span class="comment">%Number of possible solutions: nCm:nchoosek</span>
+
+<span class="comment">% PHASE-2: Number of constraint and variable</span>
+m=size(A,1); <span class="comment">%number of constraints</span>
+n=size(A,2); <span class="comment">% number of variables</span>
+
+<span class="comment">% PHASE-3: Compute the ncm Basic Solutions: The max number of basic</span>
+<span class="comment">% solutions will always be nCm</span>
+nab=nchoosek(n,m); <span class="comment">%total number of atmost basic solution</span>
+t=nchoosek(1:n,m); <span class="comment">%from this we can extract our set of variables that we need to equate to zero</span>
+
+<span class="comment">% PHASE-4:Construct the basic solution</span>
+<span class="comment">% for this n&gt;m must be satisfied</span>
+sol=[]; <span class="comment">%default solution is zero (Empty Matrix)</span>
+<span class="keyword">if</span> n&gt;=m <span class="comment">%if this is not statisfied then we can not have solutions</span>
+    <span class="keyword">for</span> i = 1:nab
+        y = zeros(n, 1);
+        <span class="comment">% Check if the selected variables form a singular matrix</span>
+        <span class="keyword">if</span> rank(A(:, t(i, :))) == m
+            X = A(:, t(i, :)) \ B; <span class="comment">% Solve for basic variables</span>
+            <span class="keyword">if</span> all(X &gt;= 0)
+                y(t(i, :)) = X;
+                sol = [sol y];
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    disp(<span class="string">"Solution: "</span>);
+    disp(sol);
+<span class="keyword">else</span>
+    error(<span class="string">'No. of variables is less than number of constraints'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> any(X == 0)
+        fprintf(<span class="string">"DEGENERATE SOLUTION\n"</span>);
+<span class="keyword">else</span>
+    fprintf(<span class="string">'NON-DEGENERATE SOLUTION\n'</span>);
+<span class="keyword">end</span>
+<span class="comment">%PHASE 5: To find optimal solution</span>
+Z=c*sol; <span class="comment">%finding the values corresponding to each point</span>
+<span class="keyword">if</span>(objective==1)
+    [Zmax,Zindex]=max(Z);<span class="comment">%storing the max value of Z and the col in which this max value resides</span>
+<span class="keyword">else</span>
+    [Zmax,Zindex]=min(Z);<span class="comment">%storing the min value of Z and the col in which this min value resides</span>
+<span class="keyword">end</span>
+BFS=sol(:,Zindex);<span class="comment">%basic feasible solution</span>
+[Optimal_Value]=[BFS' Zmax];
+Optimal_bfs=array2table(Optimal_Value);
+Optimal_bfs.Properties.VariableNames(1:size(Optimal_bfs,2))={<span class="string">'x1'</span>,<span class="string">'x2'</span>,<span class="string">'x3'</span>,<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'Optimal Value of Z'</span>};
+disp(Optimal_bfs);
+</pre>
+<pre class="codeoutput">Solution: 
+     1     1     1     0     0     0     0     0
+     0     0     0     1     0     1     0     0
+     0     0     0     1     0     0     0     0
+     0     0     0     0     1     0     1     1
+     0     0     0     0     0     1     0     0
+
+DEGENERATE SOLUTION
+    x1    x2    x3    s1    s2    Optimal Value of Z
+    __    __    __    __    __    __________________
+
+    0     1     1     0     0             2         
+
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% SHREEYA CHATTERJI 
+%% QUESTION 1 
+% TO OBTAIN BFS USING ALGEBRAIC METHOD
+% Question
+% Max Z= 2x1+3x2+4x3+7x4 
+% st: 2x1+3x2-x3+4x4=8
+% x1-2x2+6x3-7x4=-3
+% %xi>=0; i=1,2,3,4
+clc
+clear all
+format short
+% PHASE-1: Input the parameter
+c=[2,3,4,7]; %Objective function
+A=[2 3 -1 4; -1 2 -6 7]; %Coefficient Matrix
+B=[8;3];%RHS of const
+objective=1; %1 for max and -1 for minimization problem
+%Number of possible solutions: nCm:nchoosek
+
+% PHASE-2: Number of constraint and variable
+m=size(A,1); %number of constraints
+n=size(A,2); % number of variables
+
+% PHASE-3: Compute the ncm Basic Solutions: The max number of basic
+% solutions will always be nCm
+nab=nchoosek(n,m); %total number of atmost basic solution
+t=nchoosek(1:n,m); %from this we can extract our set of variables that we need to equate to zero
+
+% PHASE-4:Construct the basic solution 
+% for this n>m must be satisfied
+sol=[]; %default solution is zero (Empty Matrix)
+if n>=m %if this is not statisfied then we can not have solutions
+    for i=1:nab
+    y=zeros(n,1);
+    %selecting all rows for a specific column where for t we are taking all columns for a 
+    % specific row (which is basically the variables that are equated to zero)
+    X=(A(:,t(i,:)))\B;
+    %fetching values from A matrix for the rows correspond 
+    %checking feasibility condition
+    if all(X>=0 & X~=inf & X~=-inf)
+        y(t(i,:))=X;
+        sol=[sol y];
+    end
+    end
+    disp("Solution: ");
+    disp(sol);
+else
+    error('No. of variables is less than number of constraints')
+end
+if any(X == 0)
+        fprintf("DEGENERATE SOLUTION");
+else
+    fprintf('NON-DEGENERATE SOLUTION\n');
+end
+%PHASE 5: To find optimal solution
+Z=c*sol; %finding the values corresponding to each point
+if(objective==1)
+    [Zmax,Zindex]=max(Z);%storing the max value of Z and the col in which this max value resides
+else
+    [Zmax,Zindex]=min(Z);%storing the min value of Z and the col in which this min value resides
+end
+BFS=sol(:,Zindex);%basic feasible solution
+[Optimal_Value]=[BFS' Zmax];
+Optimal_bfs=array2table(Optimal_Value);
+Optimal_bfs.Properties.VariableNames(1:size(Optimal_bfs,2))={'x1','x2','x3','x4','Optimal Value of Z'};
+disp(Optimal_bfs);
+
+%% QUESTION 2 
+% TO OBTAIN BFS USING ALGEBRAIC METHOD
+% Question 2
+% Max Z= -x1+2x2-x3
+% st: x1+s1=4
+% x2+s2=4
+% -x1+x2+s3=6
+% -x1+2x3+s4=4
+% x1,x2,x3>=0
+clc
+clear all
+format short
+% PHASE-1: Input the parameter
+c=[-1,2,-1,0,0,0,0]; %Objective function
+A=[1,0,0,1,0,0,0;0,1,0,0,1,0,0;-1,1,0,0,0,1,0;-1,0,2,0,0,0,1]; %Coefficient Matrix
+B=[4;4;6;4];%RHS of const
+objective=1; %1 for max and -1 for minimization problem
+%Number of possible solutions: nCm:nchoosek
+
+% PHASE-2: Number of constraint and variable
+m=size(A,1); %number of constraints
+n=size(A,2); % number of variables
+
+% PHASE-3: Compute the ncm Basic Solutions: The max number of basic
+% solutions will always be nCm
+nab=nchoosek(n,m); %total number of atmost basic solution
+t=nchoosek(1:n,m); %from this we can extract our set of variables that we need to equate to zero
+
+% PHASE-4:Construct the basic solution 
+% for this n>m must be satisfied
+sol=[]; %default solution is zero (Empty Matrix)
+if n>=m %if this is not statisfied then we can not have solutions
+    for i = 1:nab
+        y = zeros(n, 1);
+        % Check if the selected variables form a singular matrix
+        if rank(A(:, t(i, :))) == m
+            X = A(:, t(i, :)) \ B; % Solve for basic variables
+            if all(X >= 0)
+                y(t(i, :)) = X;
+                sol = [sol y];
+            end
+        end
+    end
+    disp("Solution: ");
+    disp(sol);
+else
+    error('No. of variables is less than number of constraints')
+end
+if any(X == 0)
+        fprintf("DEGENERATE SOLUTION");
+else
+    fprintf('NON-DEGENERATE SOLUTION\n');
+end
+%PHASE 5: To find optimal solution
+Z=c*sol; %finding the values corresponding to each point
+if(objective==1)
+    [Zmax,Zindex]=max(Z);%storing the max value of Z and the col in which this max value resides
+else
+    [Zmax,Zindex]=min(Z);%storing the min value of Z and the col in which this min value resides
+end
+BFS=sol(:,Zindex);%basic feasible solution
+[Optimal_Value]=[BFS' Zmax];
+Optimal_bfs=array2table(Optimal_Value);
+Optimal_bfs.Properties.VariableNames(1:size(Optimal_bfs,2))={'x1','x2','x3','s1','s2','s3','s4','Optimal Value of Z'};
+disp(Optimal_bfs);
+%% QUESTION 3 
+% TO OBTAIN BFS USING ALGEBRAIC METHOD
+% Question
+% Min Z= 5x2-2x1
+% st: 2x1+5x2+s1=8
+% x1+x2+s2=2
+% %xi>=0
+clc
+clear all
+format short
+% PHASE-1: Input the parameter
+c=[-2,5,0,0]; %Objective function
+A=[2,5,1,0;1,1,0,1]; %Coefficient Matrix
+B=[8;2];%RHS of const
+objective=-1; %1 for max and -1 for minimization problem
+%Number of possible solutions: nCm:nchoosek
+
+% PHASE-2: Number of constraint and variable
+m=size(A,1); %number of constraints
+n=size(A,2); % number of variables
+
+% PHASE-3: Compute the ncm Basic Solutions: The max number of basic
+% solutions will always be nCm
+nab=nchoosek(n,m); %total number of atmost basic solution
+t=nchoosek(1:n,m); %from this we can extract our set of variables that we need to equate to zero
+
+% PHASE-4:Construct the basic solution 
+% for this n>m must be satisfied
+sol=[]; %default solution is zero (Empty Matrix)
+if n>=m %if this is not statisfied then we can not have solutions
+    for i=1:nab
+    y=zeros(n,1);
+    %selecting all rows for a specific column where for t we are taking all columns for a 
+    % specific row (which is basically the variables that are equated to zero)
+    X=(A(:,t(i,:)))\B;
+    %fetching values from A matrix for the rows correspond 
+    %checking feasibility condition
+    if all(X>=0 & X~=inf & X~=-inf)
+        y(t(i,:))=X;
+        sol=[sol y];
+    end
+    end
+    disp("Solution: ");
+    disp(sol);
+else
+    error('No. of variables is less than number of constraints')
+end
+if any(X == 0)
+        fprintf("DEGENERATE SOLUTION\n");
+else
+    fprintf('NON-DEGENERATE SOLUTION\n');
+end
+
+%PHASE 5: To find optimal solution
+Z=c*sol; %finding the values corresponding to each point
+if(objective==1)
+    [Zmax,Zindex]=max(Z);%storing the max value of Z and the col in which this max value resides
+else
+    [Zmax,Zindex]=min(Z);%storing the min value of Z and the col in which this min value resides
+end
+%Optimal BFS
+BFS=sol(:,Zindex);%basic feasible solution
+[Optimal_Value]=[BFS' Zmax];
+Optimal_bfs=array2table(Optimal_Value);
+Optimal_bfs.Properties.VariableNames(1:size(Optimal_bfs,2))={'x1','x2','s1','s2','Optimal Value of Z'};
+disp(Optimal_bfs);
+
+%% QUESTION 4 
+% TO OBTAIN BFS USING ALGEBRAIC METHOD
+% Question
+% Max Z= x1+x2+x3+0s1+0s2
+% st: x1+x2+s1=1
+% -x2+x3+s2=0
+% %xi>=0
+clc
+clear all
+format short
+
+% PHASE-1: Input the parameter
+c=[1,1,1,0,0]; %Objective function
+A=[1,1,0,1,0;0,-1,1,0,1]; %Coefficient Matrix
+B=[1;0];%RHS of const
+objective=1; %1 for max and -1 for minimization problem
+%Number of possible solutions: nCm:nchoosek
+
+% PHASE-2: Number of constraint and variable
+m=size(A,1); %number of constraints
+n=size(A,2); % number of variables
+
+% PHASE-3: Compute the ncm Basic Solutions: The max number of basic
+% solutions will always be nCm
+nab=nchoosek(n,m); %total number of atmost basic solution
+t=nchoosek(1:n,m); %from this we can extract our set of variables that we need to equate to zero
+
+% PHASE-4:Construct the basic solution 
+% for this n>m must be satisfied
+sol=[]; %default solution is zero (Empty Matrix)
+if n>=m %if this is not statisfied then we can not have solutions
+    for i = 1:nab
+        y = zeros(n, 1);
+        % Check if the selected variables form a singular matrix
+        if rank(A(:, t(i, :))) == m
+            X = A(:, t(i, :)) \ B; % Solve for basic variables
+            if all(X >= 0)
+                y(t(i, :)) = X;
+                sol = [sol y];
+            end
+        end
+    end
+    disp("Solution: ");
+    disp(sol);
+else
+    error('No. of variables is less than number of constraints')
+end
+if any(X == 0)
+        fprintf("DEGENERATE SOLUTION\n");
+else
+    fprintf('NON-DEGENERATE SOLUTION\n');
+end
+%PHASE 5: To find optimal solution
+Z=c*sol; %finding the values corresponding to each point
+if(objective==1)
+    [Zmax,Zindex]=max(Z);%storing the max value of Z and the col in which this max value resides
+else
+    [Zmax,Zindex]=min(Z);%storing the min value of Z and the col in which this min value resides
+end
+BFS=sol(:,Zindex);%basic feasible solution
+[Optimal_Value]=[BFS' Zmax];
+Optimal_bfs=array2table(Optimal_Value);
+Optimal_bfs.Properties.VariableNames(1:size(Optimal_bfs,2))={'x1','x2','x3','s1','s2','Optimal Value of Z'};
+disp(Optimal_bfs);
+
+
+
+##### SOURCE END #####
+-->
+</body>
+</html>

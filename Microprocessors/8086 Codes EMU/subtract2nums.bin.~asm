@@ -1,0 +1,10 @@
+MOV CX, 0000    ; Initialize Count register with 0000H
+MOV AX, [3000]  ; Load the first number into AX
+MOV BX, [3002]  ; Load second number into BX
+SUB AX, BX      ; Subtract BX from AX, and store to AX
+JNC STORE       ; If CY=0, jump to STORE
+INC CX          ; Increase the count register by 1
+STORE:  MOV [3004], AX  ; Store the AX content into the memory location
+MOV [3006], CX  ; Store CX value into the next memory location
+HLT             ; Terminate the program
+

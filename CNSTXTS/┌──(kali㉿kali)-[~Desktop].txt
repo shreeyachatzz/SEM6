@@ -1,0 +1,675 @@
+┌──(kali㉿kali)-[~/Desktop]
+└─$ ls   
+cprog        cprogram.c                 cprog_static  strings_cprog
+cprog_debug  cprogram_static_strip.exe  cprog_strip   strings_cprog.exe
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ gdb cprog_debug
+Command 'gdb' not found, but can be installed with:
+sudo apt install gdb        
+sudo apt install gdb-minimal
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ sudo apt install gdb    
+[sudo] password for kali: 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libbabeltrace1 libc6-dbg libdebuginfod-common libdebuginfod1 libipt2
+  libsource-highlight-common libsource-highlight4v5
+Suggested packages:
+  gdb-doc gdbserver
+The following NEW packages will be installed:
+  gdb libbabeltrace1 libc6-dbg libdebuginfod-common libdebuginfod1 libipt2
+  libsource-highlight-common libsource-highlight4v5
+0 upgraded, 8 newly installed, 0 to remove and 521 not upgraded.
+Need to get 12.1 MB of archives.
+After this operation, 25.6 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://kali.download/kali kali-rolling/main amd64 libdebuginfod-common all 0.190-1 [22.3 kB]
+Get:2 http://http.kali.org/kali kali-rolling/main amd64 libbabeltrace1 amd64 1.5.11-3+b3 [176 kB]
+Get:5 http://kali.download/kali kali-rolling/main amd64 libsource-highlight-common all 3.1.9-4.2 [77.4 kB]
+Get:3 http://http.kali.org/kali kali-rolling/main amd64 libdebuginfod1 amd64 0.190-1+b1 [28.3 kB]
+Get:4 http://mirror.kku.ac.th/kali kali-rolling/main amd64 libipt2 amd64 2.0.6-1 [43.2 kB]
+Get:6 http://http.kali.org/kali kali-rolling/main amd64 libsource-highlight4v5 amd64 3.1.9-4.2+b4 [324 kB]
+Get:7 http://mirrors.ustc.edu.cn/kali kali-rolling/main amd64 gdb amd64 13.2-1 [3,968 kB]
+Get:8 http://mirror.twds.com.tw/kali kali-rolling/main amd64 libc6-dbg amd64 2.37-12 [7,439 kB]
+Fetched 12.1 MB in 9s (1,362 kB/s)                                          
+Preconfiguring packages ...
+Selecting previously unselected package libdebuginfod-common.
+(Reading database ... 404194 files and directories currently installed.)
+Preparing to unpack .../0-libdebuginfod-common_0.190-1_all.deb ...
+Unpacking libdebuginfod-common (0.190-1) ...
+Selecting previously unselected package libbabeltrace1:amd64.
+Preparing to unpack .../1-libbabeltrace1_1.5.11-3+b3_amd64.deb ...
+Unpacking libbabeltrace1:amd64 (1.5.11-3+b3) ...
+Selecting previously unselected package libdebuginfod1:amd64.
+Preparing to unpack .../2-libdebuginfod1_0.190-1+b1_amd64.deb ...
+Unpacking libdebuginfod1:amd64 (0.190-1+b1) ...
+Selecting previously unselected package libipt2.
+Preparing to unpack .../3-libipt2_2.0.6-1_amd64.deb ...
+Unpacking libipt2 (2.0.6-1) ...
+Selecting previously unselected package libsource-highlight-common.
+Preparing to unpack .../4-libsource-highlight-common_3.1.9-4.2_all.deb ...
+Unpacking libsource-highlight-common (3.1.9-4.2) ...
+Selecting previously unselected package libsource-highlight4v5:amd64.
+Preparing to unpack .../5-libsource-highlight4v5_3.1.9-4.2+b4_amd64.deb ...
+Unpacking libsource-highlight4v5:amd64 (3.1.9-4.2+b4) ...
+Selecting previously unselected package gdb.
+Preparing to unpack .../6-gdb_13.2-1_amd64.deb ...
+Unpacking gdb (13.2-1) ...
+Selecting previously unselected package libc6-dbg:amd64.
+Preparing to unpack .../7-libc6-dbg_2.37-12_amd64.deb ...
+Unpacking libc6-dbg:amd64 (2.37-12) ...
+Setting up libdebuginfod-common (0.190-1) ...
+Setting up libdebuginfod1:amd64 (0.190-1+b1) ...
+Setting up libsource-highlight-common (3.1.9-4.2) ...
+Setting up libc6-dbg:amd64 (2.37-12) ...
+Setting up libipt2 (2.0.6-1) ...
+Setting up libbabeltrace1:amd64 (1.5.11-3+b3) ...
+Setting up libsource-highlight4v5:amd64 (3.1.9-4.2+b4) ...
+Setting up gdb (13.2-1) ...
+Processing triggers for libc-bin (2.37-12) ...
+Processing triggers for man-db (2.12.0-3) ...
+Processing triggers for kali-menu (2023.4.7) ...
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ sudo apt install gdb
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+gdb is already the newest version (13.2-1).
+0 upgraded, 0 newly installed, 0 to remove and 521 not upgraded.
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ 
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ gdb cprog_debug     
+GNU gdb (Debian 13.2-1) 13.2
+Copyright (C) 2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from cprog_debug...
+(gdb) list
+1       #include <stdio.h>
+2
+3       int main()
+4       {
+5        printf("hello  students");
+6               return 0;
+7       }
+(gdb) disass
+No frame selected.
+(gdb) b 3
+Breakpoint 1 at 0x113d: file cprogram.c, line 5.
+(gdb) disass
+No frame selected.
+(gdb) disass 3
+No function contains specified address.
+(gdb) run
+Starting program: /home/kali/Desktop/cprog_debug 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, main () at cprogram.c:5
+5        printf("hello  students");
+(gdb) disass
+Dump of assembler code for function main:
+   0x0000555555555139 <+0>:     push   %rbp
+   0x000055555555513a <+1>:     mov    %rsp,%rbp
+=> 0x000055555555513d <+4>:     lea    0xec0(%rip),%rax        # 0x555555556004                                                                           
+   0x0000555555555144 <+11>:    mov    %rax,%rdi
+   0x0000555555555147 <+14>:    mov    $0x0,%eax
+   0x000055555555514c <+19>:    call   0x555555555030 <printf@plt>
+   0x0000555555555151 <+24>:    mov    $0x0,%eax
+   0x0000555555555156 <+29>:    pop    %rbp
+   0x0000555555555157 <+30>:    ret
+End of assembler dump.
+(gdb) info
+List of info subcommands:
+
+info address -- Describe where symbol SYM is stored.
+info all-registers -- List of all registers and their contents, for selected stack frame.
+info args -- All argument variables of current stack frame or those matching REGEXPs.
+info auto-load -- Print current status of auto-loaded files.
+info auxv -- Display the inferior's auxiliary vector.
+info bookmarks -- Status of user-settable bookmarks.
+info breakpoints, 
+   info b -- Status of specified breakpoints (all user-settable breakpoints if no argument).
+info checkpoints -- IDs of currently known checkpoints.
+info classes -- All Objective-C classes, or those matching REGEXP.
+info common -- Print out the values contained in a Fortran COMMON block.
+info connections -- Target connections in use.
+info copying -- Conditions for redistributing copies of GDB.
+info dcache -- Print information on the dcache performance.
+info display -- Expressions to display when program stops, with code numbers.
+info exceptions -- List all Ada exception names.
+info extensions -- All filename extensions associated with a source language.
+info files -- Names of targets and files being debugged.
+info float -- Print the status of the floating point unit.
+--Type <RET> for more, q to quit, c to continue without paging--ret
+info frame, info f -- All about the selected stack frame.
+info frame-filter -- List all registered Python frame-filters.
+info functions -- All function names or those matching REGEXPs.
+info guile, info gu -- Prefix command for Guile info displays.
+info inferiors -- Print a list of inferiors being managed.
+info line -- Core addresses of the code for a source line.
+info locals -- All local variables of current stack frame or those matching REGEXPs.
+info macro -- Show the definition of MACRO, and it's source location.
+info macros -- Show the definitions of all macros at LINESPEC, or the current source location.
+info mem -- Memory region attributes.
+info module -- Print information about modules.
+info modules -- All module names, or those matching REGEXP.
+info os -- Show OS data ARG.
+info pretty-printer -- GDB command to list all registered pretty-printers.
+info probes -- Show available static probes.
+info proc -- Show additional information about a process.
+info program -- Execution status of the program.
+info record, info rec -- Info record options.
+info registers, 
+   info r -- List of integer registers and their contents, for selected stack frame.
+info scope -- List the variables local to a scope.
+info selectors -- All Objective-C selectors, or those matching REGEXP.
+info sharedlibrary, info dll -- Status of loaded shared object libraries.
+--Type <RET> for more, q to quit, c to continue without paging--q
+Quit
+(gdb) info files
+Symbols from "/home/kali/Desktop/cprog_debug".
+Native process:
+        Using the running image of child Thread 0x7ffff7dc8740 (LWP 8256).
+        While running this, GDB does not access memory from...
+Local exec file:
+        `/home/kali/Desktop/cprog_debug', file type elf64-x86-64.
+        Entry point: 0x555555555050
+        0x0000555555554318 - 0x0000555555554334 is .interp
+        0x0000555555554338 - 0x0000555555554358 is .note.gnu.property
+        0x0000555555554358 - 0x000055555555437c is .note.gnu.build-id
+        0x000055555555437c - 0x000055555555439c is .note.ABI-tag
+        0x00005555555543a0 - 0x00005555555543c4 is .gnu.hash
+        0x00005555555543c8 - 0x0000555555554470 is .dynsym
+        0x0000555555554470 - 0x00005555555544ff is .dynstr
+        0x0000555555554500 - 0x000055555555450e is .gnu.version
+        0x0000555555554510 - 0x0000555555554540 is .gnu.version_r
+        0x0000555555554540 - 0x0000555555554600 is .rela.dyn
+        0x0000555555554600 - 0x0000555555554618 is .rela.plt
+        0x0000555555555000 - 0x0000555555555017 is .init
+        0x0000555555555020 - 0x0000555555555040 is .plt
+        0x0000555555555040 - 0x0000555555555048 is .plt.got
+        0x0000555555555050 - 0x0000555555555158 is .text
+        0x0000555555555158 - 0x0000555555555161 is .fini
+        0x0000555555556000 - 0x0000555555556014 is .rodata
+        0x0000555555556014 - 0x0000555555556040 is .eh_frame_hdr
+        0x0000555555556040 - 0x00005555555560ec is .eh_frame
+--Type <RET> for more, q to quit, c to continue without paging--RET
+        0x0000555555557dd0 - 0x0000555555557dd8 is .init_array
+        0x0000555555557dd8 - 0x0000555555557de0 is .fini_array
+        0x0000555555557de0 - 0x0000555555557fc0 is .dynamic
+        0x0000555555557fc0 - 0x0000555555557fe8 is .got
+        0x0000555555557fe8 - 0x0000555555558008 is .got.plt
+        0x0000555555558008 - 0x0000555555558018 is .data
+        0x0000555555558018 - 0x0000555555558020 is .bss
+        0x00007ffff7fcb238 - 0x00007ffff7fcb25c is .note.gnu.build-id in /lib64/ld-linux-x86-64.so.2                                                      
+        0x00007ffff7fcb260 - 0x00007ffff7fcb398 is .hash in /lib64/ld-linux-x86-64.so.2                                                                   
+        0x00007ffff7fcb398 - 0x00007ffff7fcb4f4 is .gnu.hash in /lib64/ld-linux-x86-64.so.2                                                               
+        0x00007ffff7fcb4f8 - 0x00007ffff7fcb8a0 is .dynsym in /lib64/ld-linux-x86-64.so.2                                                                 
+        0x00007ffff7fcb8a0 - 0x00007ffff7fcbb51 is .dynstr in /lib64/ld-linux-x86-64.so.2                                                                 
+        0x00007ffff7fcbb52 - 0x00007ffff7fcbba0 is .gnu.version in /lib64/ld-linux-x86-64.so.2                                                            
+        0x00007ffff7fcbba0 - 0x00007ffff7fcbc8c is .gnu.version_d in /lib64/ld-linux-x86-64.so.2                                                          
+        0x00007ffff7fcbc90 - 0x00007ffff7fcbcd8 is .rela.dyn in /lib64/ld-linux-x86-64.so.2                                                               
+        0x00007ffff7fcbcd8 - 0x00007ffff7fcbcf0 is .relr.dyn in /lib64/ld-linux-x86-64.so.2                                                               
+        0x00007ffff7fcc000 - 0x00007ffff7ff07b1 is .text in /lib64/ld-linux-x--Type <RET> for more, q to quit, c to continue without paging--RET          
+86-64.so.2                                                                   
+        0x00007ffff7ff1000 - 0x00007ffff7ff6eb8 is .rodata in /lib64/ld-linux-x86-64.so.2                                                                 
+        0x00007ffff7ff6eb8 - 0x00007ffff7ff77cc is .eh_frame_hdr in /lib64/ld-linux-x86-64.so.2                                                           
+        0x00007ffff7ff77d0 - 0x00007ffff7ffab70 is .eh_frame in /lib64/ld-linux-x86-64.so.2                                                               
+        0x00007ffff7ffb940 - 0x00007ffff7ffce60 is .data.rel.ro in /lib64/ld-linux-x86-64.so.2                                                            
+        0x00007ffff7ffce60 - 0x00007ffff7ffcfc0 is .dynamic in /lib64/ld-linux-x86-64.so.2                                                                
+        0x00007ffff7ffcfc0 - 0x00007ffff7ffcfd0 is .got in /lib64/ld-linux-x86-64.so.2                                                                    
+        0x00007ffff7ffcfe8 - 0x00007ffff7ffd000 is .got.plt in /lib64/ld-linux-x86-64.so.2                                                                
+        0x00007ffff7ffd000 - 0x00007ffff7ffe0e8 is .data in /lib64/ld-linux-x86-64.so.2                                                                   
+        0x00007ffff7ffe0f0 - 0x00007ffff7ffe2c8 is .bss in /lib64/ld-linux-x86-64.so.2                                                                    
+        0x00007ffff7fc9120 - 0x00007ffff7fc9168 is .hash in system-supplied DSO at 0x7ffff7fc9000                                                         
+        0x00007ffff7fc9168 - 0x00007ffff7fc91c4 is .gnu.hash in system-supplied DSO at 0x7ffff7fc9000                                                     
+        0x00007ffff7fc91c8 - 0x00007ffff7fc9300 is .dynsym in system-supplied DSO at 0x7ffff7fc9000                                                       
+        0x00007ffff7fc9300 - 0x00007ffff7fc938b is .dynstr in system-supplied--Type <RET> for more, q to quit, c to continue without paging--Q
+ DSO at 0x7ffff7fc9000
+        0x00007ffff7fc938c - 0x00007ffff7fc93a6 is .gnu.version in system-supplied DSO at 0x7ffff7fc9000                                                  
+        0x00007ffff7fc93a8 - 0x00007ffff7fc93e0 is .gnu.version_d in system-supplied DSO at 0x7ffff7fc9000                                                
+        0x00007ffff7fc93e0 - 0x00007ffff7fc9500 is .dynamic in system-supplied DSO at 0x7ffff7fc9000                                                      
+        0x00007ffff7fc9500 - 0x00007ffff7fc955c is .note in system-supplied DSO at 0x7ffff7fc9000                                                         
+        0x00007ffff7fc955c - 0x00007ffff7fc95a8 is .eh_frame_hdr in system-supplied DSO at 0x7ffff7fc9000                                                 
+        0x00007ffff7fc95a8 - 0x00007ffff7fc96c0 is .eh_frame in system-supplied DSO at 0x7ffff7fc9000                                                     
+        0x00007ffff7fc96c0 - 0x00007ffff7fc9ed1 is .text in system-supplied DSO at 0x7ffff7fc9000                                                         
+        0x00007ffff7fc9ed1 - 0x00007ffff7fc9fa3 is .altinstructions in system-supplied DSO at 0x7ffff7fc9000                                              
+        0x00007ffff7fc9fa3 - 0x00007ffff7fc9fdf is .altinstr_replacement in system-supplied DSO at 0x7ffff7fc9000                                         
+        0x00007ffff7dcb350 - 0x00007ffff7dcb370 is .note.gnu.property in /lib/x86_64-linux-gnu/libc.so.6                                                  
+        0x00007ffff7dcb370 - 0x00007ffff7dcb394 is .note.gnu.build-id in /lib/x86_64-linux-gnu/libc.so.6                                                  
+        0x00007ffff7dcb394 - 0x00007ffff7dcb3b4 is .note.ABI-tag in /lib/x86_64-linux-gnu/libc.so.6                                                       
+        0x00007ffff7dcb3b8 - 0x00007ffff7dcf320 is .hash in /lib/x86_64-linux--Type <RET> for more, q to quit, c to continue without paging--q
+Quit
+(gdb) quit
+A debugging session is active.
+
+        Inferior 1 [process 8256] will be killed.
+
+Quit anyway? (y or n) y
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ 
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ sudo apt install strace
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  strace
+0 upgraded, 1 newly installed, 0 to remove and 521 not upgraded.
+Need to get 1,347 kB of archives.
+After this operation, 2,967 kB of additional disk space will be used.
+Get:1 http://mirror.kku.ac.th/kali kali-rolling/main amd64 strace amd64 6.5-0.1 [1,347 kB]
+Fetched 1,347 kB in 5s (290 kB/s)   
+Selecting previously unselected package strace.
+(Reading database ... 404976 files and directories currently installed.)
+Preparing to unpack .../strace_6.5-0.1_amd64.deb ...
+Unpacking strace (6.5-0.1) ...
+Setting up strace (6.5-0.1) ...
+Processing triggers for man-db (2.12.0-3) ...
+Processing triggers for kali-menu (2023.4.7) ...
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ strace cprog
+strace: Can't stat 'cprog': No such file or directory
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ strace ./cprog
+execve("./cprog", ["./cprog"], 0x7ffee9451060 /* 54 vars */) = 0
+brk(NULL)                               = 0x558ca52db000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f225f30a000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=89115, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 89115, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f225f2f4000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220x\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=1926256, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 1974096, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f225f112000
+mmap(0x7f225f138000, 1396736, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26000) = 0x7f225f138000
+mmap(0x7f225f28d000, 344064, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x17b000) = 0x7f225f28d000
+mmap(0x7f225f2e1000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1cf000) = 0x7f225f2e1000
+mmap(0x7f225f2e7000, 53072, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f225f2e7000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f225f10f000
+arch_prctl(ARCH_SET_FS, 0x7f225f10f740) = 0
+set_tid_address(0x7f225f10fa10)         = 9614
+set_robust_list(0x7f225f10fa20, 24)     = 0
+rseq(0x7f225f110060, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f225f2e1000, 16384, PROT_READ) = 0
+mprotect(0x558ca39c1000, 4096, PROT_READ) = 0
+mprotect(0x7f225f33c000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f225f2f4000, 89115)           = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0600, st_rdev=makedev(0x88, 0), ...}, AT_EMPTY_PATH) = 0
+getrandom("\xcc\x67\x09\x6a\xd6\xe9\x37\xcf", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x558ca52db000
+brk(0x558ca52fc000)                     = 0x558ca52fc000
+write(1, "hello  students", 15hello  students)         = 15
+exit_group(0)                           = ?
++++ exited with 0 +++
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ sudo nano thresum.c    
+[sudo] password for kali: 
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ sudo nano thresum.c
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ gcc threesum.c -g -o three            
+cc1: fatal error: threesum.c: No such file or directory
+compilation terminated.
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ ls                        
+cprog        cprogram_static_strip.exe  strings_cprog
+cprog_debug  cprog_static               strings_cprog.exe
+cprogram.c   cprog_strip                thresum.c
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ gcc thresum.c -g -o three 
+thresum.c: In function ‘main’:
+thresum.c:6:16: warning: passing argument 1 of ‘printf’ makes pointer from integer without a cast [-Wint-conversion]
+    6 |         printf(sum);
+      |                ^~~
+      |                |
+      |                int
+In file included from thresum.c:1:
+/usr/include/stdio.h:356:43: note: expected ‘const char * restrict’ but argument is of type ‘int’
+  356 | extern int printf (const char *__restrict __format, ...);
+      |                    ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ sudo nano thresum.c       
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ gcc thresum.c -g -o three
+thresum.c: In function ‘main’:
+thresum.c:6:16: warning: passing argument 1 of ‘printf’ makes pointer from integer without a cast [-Wint-conversion]
+    6 |         printf(sum);
+      |                ^~~
+      |                |
+      |                int
+In file included from thresum.c:1:
+/usr/include/stdio.h:356:43: note: expected ‘const char * restrict’ but argument is of type ‘int’
+  356 | extern int printf (const char *__restrict __format, ...);
+      |                    ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ sudo nano thresum.c      
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ gcc thresum.c -g -o three
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ ./three
+6                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ gdb three                
+GNU gdb (Debian 13.2-1) 13.2
+Copyright (C) 2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from three...
+(gdb) list
+1       #include <stdio.h>
+2       int main()
+3       {
+4               int a =1, b=2, c=3;
+5               int sum= a+b+c;
+6               printf("%d", sum);
+7               return 0;
+8       }
+(gdb) b 4
+Breakpoint 1 at 0x1141: file thresum.c, line 4.
+(gdb) disass
+No frame selected.
+(gdb) run
+Starting program: /home/kali/Desktop/three 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, main () at thresum.c:4
+4               int a =1, b=2, c=3;
+(gdb) disass
+Dump of assembler code for function main:
+   0x0000555555555139 <+0>:     push   %rbp
+   0x000055555555513a <+1>:     mov    %rsp,%rbp
+   0x000055555555513d <+4>:     sub    $0x10,%rsp
+=> 0x0000555555555141 <+8>:     movl   $0x1,-0x4(%rbp)
+   0x0000555555555148 <+15>:    movl   $0x2,-0x8(%rbp)
+   0x000055555555514f <+22>:    movl   $0x3,-0xc(%rbp)
+   0x0000555555555156 <+29>:    mov    -0x4(%rbp),%edx
+   0x0000555555555159 <+32>:    mov    -0x8(%rbp),%eax
+   0x000055555555515c <+35>:    add    %eax,%edx
+   0x000055555555515e <+37>:    mov    -0xc(%rbp),%eax
+   0x0000555555555161 <+40>:    add    %edx,%eax
+   0x0000555555555163 <+42>:    mov    %eax,-0x10(%rbp)
+   0x0000555555555166 <+45>:    mov    -0x10(%rbp),%eax
+   0x0000555555555169 <+48>:    mov    %eax,%esi
+   0x000055555555516b <+50>:    lea    0xe92(%rip),%rax        # 0x555555556004                                                                           
+   0x0000555555555172 <+57>:    mov    %rax,%rdi
+   0x0000555555555175 <+60>:    mov    $0x0,%eax
+   0x000055555555517a <+65>:    call   0x555555555030 <printf@plt>
+   0x000055555555517f <+70>:    mov    $0x0,%eax
+   0x0000555555555184 <+75>:    leave
+   0x0000555555555185 <+76>:    ret
+End of assembler dump.
+(gdb) info functions
+All defined functions:
+
+File ../argp/argp-fmtstream.h:
+266:    size_t __argp_fmtstream_point(argp_fmtstream_t);
+220:    int __argp_fmtstream_putc(argp_fmtstream_t, int);
+207:    int __argp_fmtstream_puts(argp_fmtstream_t, const char *);
+230:    size_t __argp_fmtstream_set_lmargin(argp_fmtstream_t, size_t);
+242:    size_t __argp_fmtstream_set_rmargin(argp_fmtstream_t, size_t);
+254:    size_t __argp_fmtstream_set_wmargin(argp_fmtstream_t, size_t);
+194:    size_t __argp_fmtstream_write(argp_fmtstream_t, const char *, size_t);
+
+File ../argp/argp.h:
+526:    void __argp_usage(const struct argp_state *);
+544:    int __option_is_end(const struct argp_option *);
+532:    int __option_is_short(const struct argp_option *);
+
+File ../bits/stdlib-bsearch.h:
+20:     void *__GI_bsearch(const void *, const void *, size_t, size_t, __compar_fn_t);
+
+File ../csu/libc-start.c:
+234:    int __libc_start_main_impl(int (*)(int, char **, char **), int, char **, int (*)(int, char **, char **), void (*)(void), void (*)(void), void *);
+
+File ../elf/dl-tls.c:
+--Type <RET> for more, q to quit, c to continue without paging--RET
+630:    void *__GI__dl_allocate_tls(void *);
+527:    void *__GI__dl_allocate_tls_init(void *, _Bool);
+640:    void __GI__dl_deallocate_tls(void *, _Bool);
+944:    void *___tls_get_addr(tls_index *);
+1014:   void _dl_add_to_slotinfo(struct link_map *, _Bool);
+421:    void *_dl_allocate_tls_storage(void);
+130:    void _dl_assign_tls_modid(struct link_map *);
+196:    size_t _dl_count_modids(void);
+220:    void _dl_determine_tlsoffset(void);
+397:    void _dl_get_tls_static_info(size_t *, size_t *);
+1090:   void _dl_init_static_tls(struct link_map *);
+969:    void *_dl_tls_get_addr_soft(struct link_map *);
+96:     void _dl_tls_static_surplus_init(size_t);
+724:    struct link_map *_dl_update_slotinfo(unsigned long);
+484:    static dtv_t *_dl_resize_dtv(dtv_t *, size_t);
+364:    static void *allocate_dtv(void *);
+856:    static void *tls_get_addr_tail(tls_index *, dtv_t *, struct link_map *);
+917:    static struct link_map *update_get_addr(tls_index *);
+
+File ../iconv/skeleton.c:
+394:    int __gconv_transform_ascii_internal(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_internal_ascii(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned ch--Type <RET> for more, q to quit, c to continue without paging--RET
+ar **, size_t *, int, int);
+394:    int __gconv_transform_internal_ucs2(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_internal_ucs2reverse(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_internal_ucs4(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_internal_ucs4le(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_internal_utf8(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_ucs2_internal(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_ucs2reverse_internal(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_ucs4_internal(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_ucs4le_internal(struct __gconv_step *, struct _--Type <RET> for more, q to quit, c to continue without paging--RET
+_gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+394:    int __gconv_transform_utf8_internal(struct __gconv_step *, struct __gconv_step_data *, const unsigned char **, const unsigned char *, unsigned char **, size_t *, int, int);
+
+File ../include/ctype.h:
+39:     const uint16_t **__ctype_b_loc(void);
+51:     const int32_t **__ctype_tolower_loc(void);
+45:     const int32_t **__ctype_toupper_loc(void);
+
+File ../include/rounding-mode.h:
+43:     static _Bool round_away(_Bool, _Bool, _Bool, _Bool, int);
+
+File ../intl/l10nflist.c:
+151:    struct loaded_l10nfile *_nl_make_l10nflist(struct loaded_l10nfile **, const char *, size_t, int, const char *, const char *, const char *, const char *, const char *, const char *, int);
+299:    const char *_nl_normalize_codeset(const char *, size_t);
+
+File ../login/updwtmp.c:
+27:     void __GI___updwtmp(const char *, const struct utmp *);
+
+File ../login/utmp_file.c:
+448:    void __libc_endutent(void);
+187:    int __libc_getutent_r(struct utmp *, struct utmp **);
+--Type <RET> for more, q to quit, c to continue without paging--RET
+267:    int __libc_getutid_r(const struct utmp *, struct utmp *, struct utmp **);
+294:    int __libc_getutline_r(const struct utmp *, struct utmp *, struct utmp **);
+344:    struct utmp *__libc_pututline(const struct utmp *);
+135:    int __libc_setutent(void);
+459:    int __libc_updwtmp(const char *, const struct utmp *);
+47:     static _Bool matches_last_entry(const struct utmp *);
+168:    static ssize_t read_last_entry(void);
+70:     static void timeout_handler(int);
+80:     static _Bool try_file_lock(int, int);
+
+File ../malloc/dynarray-skeleton.c:
+279:    static void action_list_add__(struct action_list *, struct nss_action);
+279:    static void array_add__(struct array *, char *);
+358:    static const struct sockaddr **nameserver_list_emplace(struct nameserver_list *);
+279:    static void ptrlist_add__(struct ptrlist *, char *);
+279:    static void search_list_add__(struct search_list *, const char *);
+279:    static void strlist_add__(struct strlist *, char *);
+
+File ../misc/sbrk.c:
+36:     void *__sbrk(intptr_t);
+
+File ../nptl/pthread_mutex_lock.c:
+--Type <RET> for more, q to quit, c to continue without paging--q
+Quit
+(gdb) strace
+warning: Couldn't determine the static tracepoint marker to probe
+Note: breakpoint 1 also set at pc 0x555555555141.
+Static tracepoint 2 at 0x555555555141: file thresum.c, line 4.
+(gdb) strace ./three
+Function "./three" not defined.
+Make static tracepoint pending on future shared library load? (y or [n]) Quit
+(gdb) quit
+A debugging session is active.
+
+        Inferior 1 [process 19198] will be killed.
+
+Quit anyway? (y or n) y
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ strace ./three
+execve("./three", ["./three"], 0x7ffeb4f22450 /* 54 vars */) = 0
+brk(NULL)                               = 0x55cc913d9000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f127802c000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=89115, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 89115, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1278016000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220x\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=1926256, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 1974096, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f1277e34000
+mmap(0x7f1277e5a000, 1396736, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26000) = 0x7f1277e5a000
+mmap(0x7f1277faf000, 344064, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x17b000) = 0x7f1277faf000
+mmap(0x7f1278003000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1cf000) = 0x7f1278003000
+mmap(0x7f1278009000, 53072, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f1278009000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1277e31000
+arch_prctl(ARCH_SET_FS, 0x7f1277e31740) = 0
+set_tid_address(0x7f1277e31a10)         = 21842
+set_robust_list(0x7f1277e31a20, 24)     = 0
+rseq(0x7f1277e32060, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f1278003000, 16384, PROT_READ) = 0
+mprotect(0x55cc8fa1c000, 4096, PROT_READ) = 0
+mprotect(0x7f127805e000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f1278016000, 89115)           = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0600, st_rdev=makedev(0x88, 0), ...}, AT_EMPTY_PATH) = 0
+getrandom("\x28\xb2\x02\x99\x36\xd3\xbb\xf5", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x55cc913d9000
+brk(0x55cc913fa000)                     = 0x55cc913fa000
+write(1, "6", 16)                        = 1
+exit_group(0)                           = ?
++++ exited with 0 +++
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ ltrace ./three
+Command 'ltrace' not found, but can be installed with:
+sudo apt install ltrace
+Do you want to install it? (N/y)y
+sudo apt install ltrace
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  ltrace
+0 upgraded, 1 newly installed, 0 to remove and 521 not upgraded.
+Need to get 125 kB of archives.
+After this operation, 338 kB of additional disk space will be used.
+Get:1 http://kali.download/kali kali-rolling/main amd64 ltrace amd64 0.7.3-6.4 [125 kB]
+Fetched 125 kB in 2s (69.3 kB/s)
+Selecting previously unselected package ltrace.
+(Reading database ... 404987 files and directories currently installed.)
+Preparing to unpack .../ltrace_0.7.3-6.4_amd64.deb ...
+Unpacking ltrace (0.7.3-6.4) ...
+Setting up ltrace (0.7.3-6.4) ...
+Processing triggers for kali-menu (2023.4.7) ...
+Processing triggers for man-db (2.12.0-3) ...
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ ltrace ./three
+printf("%d", 6)                                = 1
+6+++ exited (status 0) +++
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ ltrace -i     
+ltrace: too few arguments
+Try `ltrace --help' for more information.
+                                                                             
+┌──(kali㉿kali)-[~/Desktop]
+└─$ ltrace --help
+Usage: ltrace [option ...] [command [arg ...]]
+Trace library calls of a given program.
+
+  -a, --align=COLUMN  align return values in a secific column.
+  -A MAXELTS          maximum number of array elements to print.
+  -b, --no-signals    don't print signals.
+  -c                  count time and calls, and report a summary on exit.
+  -C, --demangle      decode low-level symbol names into user-level names.
+  -D, --debug=MASK    enable debugging (see -Dh or --debug=help).
+  -Dh, --debug=help   show help on debugging.
+  -e FILTER           modify which library calls to trace.
+  -f                  trace children (fork() and clone()).
+  -F, --config=FILE   load alternate configuration file (may be repeated).
+  -h, --help          display this help and exit.
+  -i                  print instruction pointer at time of library call.
+  -l, --library=LIBRARY_PATTERN only trace symbols implemented by this library.
+  -L                  do NOT display library calls.
+  -n, --indent=NR     indent output by NR spaces for each call level nesting.
+  -o, --output=FILENAME write the trace output to file with given name.
+  -p PID              attach to the process with the process ID pid.
+  -r                  print relative timestamps.
+  -s STRSIZE          specify the maximum string size to print.
+  -S                  trace system calls as well as library calls.
+  -t, -tt, -ttt       print absolute timestamps.
+  -T                  show the time spent inside each call.
+  -u USERNAME         run command with the userid, groupid of username.
+  -V, --version       output version information and exit.
+  -x FILTER           modify which static functions to trace.
+
+Report bugs to ltrace-devel@lists.alioth.debian.org
